@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2d1a0e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Casa Caipira">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Casa Caipira · PDV</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Lato:wght@300;400;700&display=swap');
+:root{
+  --marrom-esc:#2d1a0e;
+  --marrom:#5c3317;
+  --marrom-med:#8b5a2b;
+  --marrom-clr:#c8963e;
+  --dourado:#d4a853;
+  --dourado-clr:#f5e6c8;
+  --creme:#faf5ed;
+  --creme-esc:#f0e6d3;
+  --creme-med:#e8d9c0;
+  --branco:#fff;
+  --texto:#2d1a0e;
+  --texto-med:#6b4c2a;
+  --texto-clr:#a07850;
+  --verde:#2d6a4f;
+  --verde-clr:#d8f3dc;
+  --perigo:#9b2226;
+  --perigo-clr:#fde8e9;
+  --amarelo:#bb6f00;
+  --amarelo-clr:#fff3cd;
+  --borda:#dcc9a8;
+  --r:10px;
+  --sh:0 2px 10px rgba(45,26,14,.10);
+  --shl:0 8px 28px rgba(45,26,14,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Lato',sans-serif;background:var(--creme);color:var(--texto);min-height:100vh}
+h1,h2,h3,.serif{font-family:'Playfair Display',serif}
+
+/* ── HEADER ── */
+header{
+  background:var(--marrom-esc);
+  padding:0 20px;height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 3px 18px rgba(0,0,0,.35);
+  border-bottom:2px solid var(--dourado);
+}
+.logo-area{display:flex;align-items:center;gap:12px}
+.logo-img{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--marrom);
+  border:2px solid var(--dourado);
+  object-fit:cover;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;flex-shrink:0;
+}
+.logo-img svg{width:26px;height:26px}
+.logo-txt{display:flex;flex-direction:column;gap:0}
+.logo-nome{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--dourado);letter-spacing:.02em;line-height:1}
+.logo-sub{font-size:10px;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+.hdr-links{display:flex;align-items:center;gap:10px}
+.hdr-link{
+  display:flex;align-items:center;gap:5px;
+  color:rgba(255,255,255,.55);font-size:11px;font-weight:700;
+  text-decoration:none;letter-spacing:.05em;
+  padding:5px 10px;border-radius:6px;
+  border:1px solid rgba(255,255,255,.12);
+  transition:all .2s;
+}
+.hdr-link:hover{color:var(--dourado);border-color:var(--dourado);background:rgba(212,168,83,.08)}
+.hdr-link svg{flex-shrink:0}
+.hdr-badge{background:rgba(212,168,83,.15);color:var(--dourado);font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700;border:1px solid rgba(212,168,83,.3)}
+
+/* ── TABS ── */
+.tabs{
+  display:flex;background:var(--marrom-esc);
+  padding:0 20px;border-bottom:1px solid rgba(255,255,255,.06);
+  overflow-x:auto;
+}
+.tab{
+  font-family:'Lato',sans-serif;font-size:12px;font-weight:700;
+  padding:10px 16px;color:rgba(255,255,255,.38);
+  cursor:pointer;border-bottom:2px solid transparent;
+  transition:all .2s;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+}
+.tab:hover{color:rgba(255,255,255,.75)}
+.tab.active{color:var(--dourado);border-bottom-color:var(--dourado)}
+
+/* ── BUTTONS ── */
+.btn{
+  height:40px;padding:0 16px;border-radius:8px;
+  font-family:'Lato',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:.04em;cursor:pointer;border:none;
+  transition:all .15s;white-space:nowrap;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+}
+.btn:active{transform:scale(.97)}
+.btn-dourado{background:var(--dourado);color:var(--marrom-esc)}.btn-dourado:hover{background:var(--marrom-clr)}
+.btn-marrom{background:var(--marrom);color:var(--dourado-clr)}.btn-marrom:hover{background:var(--marrom-med)}
+.btn-ghost{background:transparent;color:var(--texto-med);border:1.5px solid var(--borda)}.btn-ghost:hover{background:var(--creme-esc)}
+.btn-danger{background:var(--perigo-clr);color:var(--perigo)}.btn-danger:hover{background:var(--perigo);color:#fff}
+.btn-sm{height:32px;padding:0 11px;font-size:11px}
+.btn-xl{height:52px;font-size:15px;border-radius:10px;letter-spacing:.06em}
+
+/* ── FIELDS ── */
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:11px;font-weight:700;color:var(--texto-clr);text-transform:uppercase;letter-spacing:.05em}
+.field input,.field select{
+  height:38px;border:1.5px solid var(--borda);border-radius:8px;
+  padding:0 11px;font-family:'Lato',sans-serif;font-size:13px;
+  color:var(--texto);background:var(--creme);outline:none;transition:border-color .2s;
+}
+.field input:focus,.field select:focus{border-color:var(--marrom-med);background:var(--branco)}
+
+/* ═══════════════════════ PDV LAYOUT ═══════════════════════ */
+.pdv-wrap{display:grid;grid-template-columns:1fr 370px;height:calc(100vh - 98px)}
+@media(max-width:780px){.pdv-wrap{grid-template-columns:1fr;height:auto}}
+
+/* ESQUERDA */
+.pdv-left{overflow-y:auto;padding:16px;background:var(--creme)}
+.pdv-topbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+
+/* Barcode input */
+.bc-box{
+  display:flex;align-items:center;gap:8px;
+  background:var(--marrom-esc);border-radius:8px;
+  padding:0 13px;height:42px;flex:1;min-width:150px;
+  border:1px solid var(--dourado);
+}
+.bc-box input{
+  border:none;background:transparent;
+  font-family:'Playfair Display',serif;font-size:14px;font-weight:600;
+  letter-spacing:.06em;outline:none;color:var(--dourado);width:100%;
+}
+.bc-box input::placeholder{color:rgba(212,168,83,.35);font-weight:500}
+
+/* Search */
+.srch-box{
+  display:flex;align-items:center;gap:7px;
+  background:var(--branco);border:1.5px solid var(--borda);
+  border-radius:8px;padding:0 12px;height:42px;flex:1;min-width:140px;
+}
+.srch-box input{
+  border:none;background:transparent;
+  font-family:'Lato',sans-serif;font-size:13px;
+  outline:none;color:var(--texto);width:100%;
+}
+
+/* Categoria pills */
+.cat-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.pill{
+  font-size:12px;font-weight:700;padding:5px 13px;border-radius:20px;
+  border:1.5px solid var(--borda);background:var(--branco);
+  cursor:pointer;transition:all .15s;color:var(--texto-med);
+  letter-spacing:.03em;
+}
+.pill:hover{border-color:var(--marrom-med);color:var(--marrom)}
+.pill.on{background:var(--marrom);color:var(--dourado-clr);border-color:var(--marrom)}
+
+/* Produto card */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(152px,1fr));gap:10px}
+.pc{
+  background:var(--branco);border-radius:var(--r);
+  padding:14px 12px;cursor:pointer;
+  border:1.5px solid var(--borda);
+  transition:all .14s;box-shadow:var(--sh);
+  user-select:none;position:relative;
+}
+.pc:hover{border-color:var(--marrom-med);box-shadow:0 4px 18px rgba(45,26,14,.14);transform:translateY(-1px)}
+.pc:active{transform:scale(.97)}
+.pc.esgotado{opacity:.38;cursor:not-allowed;filter:grayscale(.5)}
+.pc.esgotado:hover{border-color:var(--borda);transform:none;box-shadow:var(--sh)}
+
+.pc-cat{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:7px;letter-spacing:.05em;text-transform:uppercase}
+.pc-nome{font-family:'Playfair Display',serif;font-size:13px;font-weight:600;line-height:1.3;margin-bottom:6px;color:var(--marrom-esc)}
+.pc-preco{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--marrom)}
+.pc-unid{font-family:'Lato',sans-serif;font-size:11px;font-weight:400;color:var(--texto-clr)}
+.pc-estq{font-size:11px;color:var(--texto-clr);margin-top:4px}
+.pc-add{
+  position:absolute;top:8px;right:8px;
+  background:var(--marrom);color:var(--dourado);
+  font-size:16px;font-weight:700;
+  width:22px;height:22px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;line-height:1;
+}
+.pc:hover .pc-add{display:flex}
+
+/* ─── CARRINHO (direita) ─── */
+.cart{
+  background:var(--branco);
+  border-left:1px solid var(--creme-med);
+  display:flex;flex-direction:column;
+  box-shadow:-4px 0 20px rgba(45,26,14,.07);
+}
+.cart-hdr{
+  padding:14px 16px;
+  border-bottom:1px solid var(--creme-esc);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+  background:var(--creme);
+}
+.cart-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--marrom-esc)}
+.cart-num-badge{
+  background:var(--marrom-esc);color:var(--dourado);
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;
+  font-family:'Lato',sans-serif;letter-spacing:.04em;
+}
+
+.cart-body{flex:1;overflow-y:auto;min-height:0}
+.cart-empty-msg{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;color:var(--texto-clr);padding:24px;text-align:center;gap:12px;min-height:200px;
+}
+.cart-empty-msg p{font-size:13px;line-height:1.6;font-family:'Lato',sans-serif}
+
+/* Item do carrinho */
+.ci{
+  display:flex;align-items:flex-start;gap:9px;
+  padding:11px 15px;border-bottom:1px solid var(--creme-esc);
+}
+.ci:last-child{border-bottom:none}
+.ci-info{flex:1;min-width:0}
+.ci-nome{font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--marrom-esc);line-height:1.3}
+.ci-sub{font-size:11px;color:var(--texto-clr);margin-top:2px;font-family:'Lato',sans-serif}
+.ci-ctrl{display:flex;align-items:center;gap:4px;flex-shrink:0;margin-top:2px}
+.qb{
+  width:26px;height:26px;border-radius:7px;
+  border:1.5px solid var(--borda);background:var(--creme);
+  cursor:pointer;font-size:15px;font-weight:700;color:var(--marrom);
+  display:flex;align-items:center;justify-content:center;line-height:1;
+  transition:all .1s;padding:0;font-family:'Lato',sans-serif;
+}
+.qb:hover{border-color:var(--marrom);background:var(--marrom);color:var(--dourado)}
+.qv{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;min-width:28px;text-align:center;color:var(--marrom-esc)}
+.ci-total{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;min-width:62px;text-align:right;flex-shrink:0;color:var(--marrom-esc)}
+.ci-del{
+  width:22px;height:22px;border-radius:5px;border:none;
+  background:none;cursor:pointer;color:var(--borda);font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .1s;padding:0;flex-shrink:0;
+}
+.ci-del:hover{background:var(--perigo-clr);color:var(--perigo)}
+
+/* FOOTER DO CARRINHO */
+.cart-foot{
+  border-top:2px solid var(--creme-esc);
+  padding:14px 16px;display:flex;flex-direction:column;gap:10px;
+  flex-shrink:0;background:var(--creme);
+}
+.tot-line{display:flex;justify-content:space-between;font-size:13px;color:var(--texto-clr)}
+.tot-line span:last-child{font-weight:700;color:var(--marrom-esc)}
+
+.tot-big{
+  background:var(--marrom-esc);border-radius:10px;
+  padding:14px 16px;display:flex;align-items:center;justify-content:space-between;
+  border:1px solid var(--dourado);
+}
+.tot-label{font-family:'Lato',sans-serif;font-size:10px;font-weight:700;color:rgba(212,168,83,.55);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.tot-num{font-family:'Playfair Display',serif;font-size:30px;font-weight:800;color:var(--dourado);line-height:1}
+.tot-itens-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:rgba(212,168,83,.7)}
+
+.troco-row{display:flex;gap:8px;align-items:center}
+.troco-label{font-size:12px;font-weight:700;color:var(--texto-clr);white-space:nowrap;letter-spacing:.03em}
+.troco-inp{
+  flex:1;height:38px;
+  border:1.5px solid var(--borda);border-radius:8px;
+  padding:0 11px;font-family:'Playfair Display',serif;font-size:15px;font-weight:700;
+  text-align:right;outline:none;background:var(--branco);color:var(--texto);
+}
+.troco-inp:focus{border-color:var(--marrom-med)}
+.troco-res{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;min-width:80px;text-align:right;white-space:nowrap}
+.cart-btns{display:flex;gap:8px}
+
+/* ═══ BACK-OFFICE ═══ */
+.back-sec{display:none;max-width:1100px;margin:0 auto;padding:20px 16px}
+.back-sec.active{display:block}
+.sum-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-bottom:20px}
+.sc{background:var(--branco);border-radius:var(--r);padding:14px 16px;box-shadow:var(--sh);border-left:3px solid var(--marrom)}
+.sc.p{border-left-color:var(--perigo)}.sc.a{border-left-color:var(--amarelo)}.sc.b{border-left-color:var(--verde)}
+.sc-l{font-size:11px;font-weight:700;color:var(--texto-clr);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.sc-v{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--marrom-esc)}
+.sc-v.vd{color:var(--verde)}.sc-v.pe{color:var(--perigo)}.sc-v.av{color:var(--amarelo)}
+.tw{background:var(--branco);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;margin-bottom:18px;border:1px solid var(--creme-med)}
+.thdr{display:flex;align-items:center;justify-content:space-between;padding:13px 17px;border-bottom:1px solid var(--creme-esc);flex-wrap:wrap;gap:8px;background:var(--creme)}
+.thdr-t{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--marrom-esc)}
+table{width:100%;border-collapse:collapse}
+thead th{font-family:'Lato',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--texto-clr);padding:9px 13px;text-align:left;background:var(--creme);border-bottom:1px solid var(--creme-esc)}
+th.r,td.r{text-align:right}
+tbody tr{border-bottom:1px solid var(--creme-esc);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--creme)}
+td{padding:10px 13px;font-size:13px;vertical-align:middle;font-family:'Lato',sans-serif}
+.tc{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em}
+.eb{font-family:'Lato',sans-serif;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;display:inline-block}
+.eo{background:var(--verde-clr);color:var(--verde)}.el{background:var(--amarelo-clr);color:var(--amarelo)}.ez{background:var(--perigo-clr);color:var(--perigo)}
+.panel{background:var(--branco);border-radius:var(--r);box-shadow:var(--sh);padding:18px 20px;margin-bottom:16px;border:1px solid var(--creme-med)}
+.panel-t{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--marrom-esc);margin-bottom:13px}
+.alert-b{background:var(--amarelo-clr);border:1px solid #f6c354;border-radius:var(--r);padding:10px 14px;font-size:13px;color:#7a5100;display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.alert-b.hid{display:none}
+.es{text-align:center;padding:36px;color:var(--texto-clr);font-size:13px}
+.sw{display:flex;align-items:center;gap:7px;background:var(--branco);border:1.5px solid var(--borda);border-radius:8px;padding:0 11px;height:34px;min-width:150px}
+.sw input{border:none;background:transparent;font-size:13px;outline:none;color:var(--texto);width:100%;font-family:'Lato',sans-serif}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px}
+.fg .full{grid-column:1/-1}
+.adj-row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
+.mv{display:flex;align-items:center;gap:11px;padding:10px 15px;border-bottom:1px solid var(--creme-esc);font-size:13px}
+.mv:last-child{border-bottom:none}
+.mv-ic{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.mv-ic.venda{background:var(--verde-clr)}.mv-ic.entrada{background:var(--dourado-clr)}.mv-ic.ajuste{background:var(--amarelo-clr)}.mv-ic.perda{background:var(--perigo-clr)}
+.mv-info{flex:1}.mv-p{font-weight:700;color:var(--marrom-esc)}.mv-d{font-size:11px;color:var(--texto-clr);margin-top:1px}
+.mv-q{font-family:'Playfair Display',serif;font-weight:700;font-size:14px}
+.mv-q.pos{color:var(--verde)}.mv-q.neg{color:var(--perigo)}
+.mv-dt{font-size:11px;color:var(--texto-clr);white-space:nowrap}
+.act-btns{display:flex;gap:4px;justify-content:flex-end}
+
+/* OVERLAYS */
+.overlay{display:none;position:fixed;inset:0;background:rgba(45,26,14,.6);z-index:400;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.overlay.open{display:flex}
+.modal{background:var(--branco);border-radius:14px;padding:26px 28px;width:100%;margin:14px;box-shadow:var(--shl);animation:su .22s ease;border-top:3px solid var(--dourado)}
+@keyframes su{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}
+.modal-t{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:18px;color:var(--marrom-esc)}
+.modal-g{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:0}
+.modal-g .full{grid-column:1/-1}
+.modal-foot{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+
+/* VENDA OK */
+.venda-ok{
+  background:var(--marrom-esc);border-radius:16px;padding:30px 34px;
+  width:100%;max-width:380px;margin:14px;text-align:center;
+  animation:su .25s ease;border:2px solid var(--dourado);
+}
+.vok-check{font-size:52px;margin-bottom:8px}
+.vok-label{font-family:'Lato',sans-serif;font-size:11px;font-weight:700;color:rgba(212,168,83,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.vok-total{font-family:'Playfair Display',serif;font-size:42px;font-weight:800;color:var(--dourado);margin-bottom:6px;line-height:1}
+.vok-troco{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:18px;min-height:20px;font-family:'Lato',sans-serif}
+.vok-troco strong{color:var(--dourado)}
+.vok-itens{display:flex;flex-direction:column;gap:5px;margin-bottom:20px;text-align:left;border-top:1px solid rgba(212,168,83,.2);padding-top:14px}
+.vok-item{display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.65);font-family:'Lato',sans-serif}
+.vok-item span:last-child{font-family:'Playfair Display',serif;font-weight:700;color:rgba(212,168,83,.9)}
+
+/* TOAST */
+#toast{
+  position:fixed;bottom:18px;right:18px;
+  background:var(--marrom-esc);color:var(--creme);
+  padding:11px 17px;border-radius:9px;font-size:13px;font-weight:700;
+  transform:translateY(70px);opacity:0;transition:all .25s;z-index:999;
+  border-left:4px solid var(--dourado);max-width:290px;
+  font-family:'Lato',sans-serif;
+}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.er{border-left-color:var(--perigo)}
+#toast.av{border-left-color:var(--amarelo)}
+</style>
+</head>
+<body>
+
+<!-- ══ TELA DE SENHA ══ -->
+<div id="tela-senha" style="position:fixed;inset:0;background:var(--marrom-esc);z-index:9999;display:flex;align-items:center;justify-content:center">
+  <div style="text-align:center;padding:32px 28px;max-width:320px;width:100%">
+
+    <!-- Logo -->
+    <div style="width:72px;height:72px;border-radius:50%;background:var(--marrom);border:2px solid var(--dourado);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+      <svg viewBox="0 0 60 60" fill="none" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" fill="#5c3317" stroke="#d4a853" stroke-width="2"/>
+        <path d="M14 38 Q30 20 46 38" fill="#2d1a0e"/>
+        <rect x="22" y="28" width="16" height="12" rx="1" fill="#c8963e"/>
+        <rect x="26" y="30" width="4" height="6" rx="1" fill="#2d1a0e"/>
+        <rect x="32" y="30" width="4" height="3" rx="1" fill="#faf5ed"/>
+        <path d="M13 28 L30 16 L47 28" stroke="#d4a853" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+
+    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--dourado);margin-bottom:4px">Casa Caipira</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:28px">PDV · Boutique de Frangos</div>
+
+    <input id="senha-input" type="password" placeholder="Digite a senha"
+           style="width:100%;height:48px;border-radius:10px;border:1.5px solid rgba(212,168,83,.4);background:rgba(255,255,255,.07);color:#fff;font-size:16px;text-align:center;outline:none;letter-spacing:.15em;margin-bottom:12px;font-family:'Lato',sans-serif"
+           onkeydown="if(event.key==='Enter')verificarSenha()">
+
+    <button onclick="verificarSenha()"
+            style="width:100%;height:46px;border-radius:10px;background:var(--dourado);color:var(--marrom-esc);font-family:'Playfair Display',serif;font-size:15px;font-weight:700;border:none;cursor:pointer;letter-spacing:.04em">
+      Entrar
+    </button>
+
+    <div id="senha-erro" style="display:none;margin-top:12px;font-size:13px;color:#ff8a80;font-family:'Lato',sans-serif">
+      Senha incorreta. Tente novamente.
+    </div>
+
+    <div style="margin-top:24px;font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.06em">
+      Desde 1974 · Uberlândia
+    </div>
+  </div>
+</div>
+
+<script>
+// ── SENHA DE ACESSO ────────────────────────────────────────────────
+// Para alterar a senha, troque o valor abaixo
+var SENHA_PDV = '1974';
+
+function verificarSenha(){
+  var input = document.getElementById('senha-input');
+  var erro  = document.getElementById('senha-erro');
+  if(input.value === SENHA_PDV){
+    document.getElementById('tela-senha').style.display = 'none';
+    input.value = '';
+    // Foca no campo de barras após login
+    setTimeout(function(){ 
+      var bc = document.getElementById('bc');
+      if(bc) bc.focus();
+    }, 200);
+  } else {
+    erro.style.display = 'block';
+    input.value = '';
+    input.focus();
+    // Shake animation
+    input.style.borderColor = '#ff8a80';
+    setTimeout(function(){ input.style.borderColor = 'rgba(212,168,83,.4)'; }, 1000);
+  }
+}
+
+// Verifica se já estava autenticado nesta sessão
+if(sessionStorage.getItem('cc_auth') === '1'){
+  document.getElementById('tela-senha').style.display = 'none';
+} else {
+  // Salva auth na sessão ao entrar
+  var _origVerif = verificarSenha;
+  verificarSenha = function(){
+    var input = document.getElementById('senha-input');
+    if(input.value === SENHA_PDV){
+      sessionStorage.setItem('cc_auth','1');
+    }
+    _origVerif();
+  };
+  // Foca no input ao carregar
+  window.addEventListener('load', function(){
+    document.getElementById('senha-input').focus();
+  });
+}
+</script>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-area">
+    <!-- Logo Casa Caipira (SVG baseado na marca) -->
+    <div class="logo-img">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" fill="#5c3317" stroke="#d4a853" stroke-width="2"/>
+        <path d="M14 38 Q30 20 46 38" fill="#2d1a0e"/>
+        <rect x="22" y="28" width="16" height="12" rx="1" fill="#c8963e"/>
+        <rect x="26" y="30" width="4" height="6" rx="1" fill="#2d1a0e"/>
+        <rect x="32" y="30" width="4" height="3" rx="1" fill="#faf5ed"/>
+        <path d="M13 28 L30 16 L47 28" stroke="#d4a853" stroke-width="1.5" fill="none"/>
+        <ellipse cx="38" cy="22" rx="5" ry="4" fill="#d4a853" opacity=".8"/>
+        <circle cx="38" cy="20" r="2" fill="#c8963e"/>
+      </svg>
+    </div>
+    <div class="logo-txt">
+      <div class="logo-nome">Casa Caipira</div>
+      <div class="logo-sub">Boutique de Frangos · desde 1974</div>
+    </div>
+  </div>
+  <div class="hdr-links">
+    <a class="hdr-link" href="https://www.instagram.com/casacaipira" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      @casacaipira
+    </a>
+    <a class="hdr-link" href="https://www.meucatalogodigital.app/casacaipira" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="currentColor" stroke-width="1.8"/></svg>
+      Catálogo
+    </a>
+    <span class="hdr-badge" id="hdr-est">0 produtos</span>
+    <button class="btn btn-ghost btn-sm" data-action="exportCSV" style="color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.15)">⬇ CSV</button>
+    <label class="btn btn-ghost btn-sm" style="color:var(--dourado);border-color:rgba(212,168,83,.4);cursor:pointer" title="Importar planilha XLSX ou CSV com colunas: nome, categoria, preco">
+      ⬆ Importar
+      <input type="file" id="import-file" accept=".xlsx,.xls,.csv" style="display:none" data-action="importarPlanilha">
+    </label>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" data-tab="pdv">🛒 Venda</div>
+  <div class="tab" data-tab="estoque">📦 Estoque</div>
+  <div class="tab" data-tab="movs">📋 Movimentações</div>
+  <div class="tab" data-tab="cad">➕ Cadastro</div>
+</div>
+
+<!-- ══════ PDV ══════ -->
+<div id="pdv-sec" style="display:none;background:var(--creme);min-height:calc(100vh - 98px)">
+  <!-- Layout vertical compacto para janela pequena (~420px) -->
+  <div style="max-width:440px;margin:0 auto;padding:12px;display:flex;flex-direction:column;gap:10px">
+
+    <!-- BARCODE -->
+    <div class="bc-box" style="width:100%;height:46px;border-radius:10px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <rect x="2"  y="4" width="2"  height="16" fill="rgba(212,168,83,.8)"/>
+        <rect x="6"  y="4" width="1"  height="16" fill="rgba(212,168,83,.8)"/>
+        <rect x="9"  y="4" width="2"  height="16" fill="rgba(212,168,83,.8)"/>
+        <rect x="13" y="4" width="1"  height="16" fill="rgba(212,168,83,.8)"/>
+        <rect x="16" y="4" width="3"  height="16" fill="rgba(212,168,83,.8)"/>
+        <rect x="21" y="4" width="1"  height="16" fill="rgba(212,168,83,.8)"/>
+      </svg>
+      <input id="bc" type="text" placeholder="Código de barras…" autocomplete="off"
+             data-keyenter="bcEnter" style="font-size:14px">
+    </div>
+
+    <!-- BUSCA -->
+    <div class="srch-box" style="width:100%;height:40px;border-radius:10px">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="#a07850" stroke-width="1.8"/><path d="M14 14l3.5 3.5" stroke="#a07850" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input id="busca" type="text" placeholder="Buscar pelo nome…" data-input="renderBusca" style="font-size:13px">
+    </div>
+
+    <!-- RESULTADO DE BUSCA -->
+    <div id="busca-resultados" style="display:none;background:#fff;border-radius:10px;border:1.5px solid var(--borda);overflow:hidden;box-shadow:var(--sh)"></div>
+
+    <!-- PRODUTO ENCONTRADO -->
+    <div id="prod-encontrado" style="display:none;background:#fff;border-radius:12px;border:2px solid var(--dourado);padding:14px 16px;box-shadow:var(--sh)">
+      <div style="font-size:10px;font-weight:700;color:var(--texto-clr);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px" id="pe-cat"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--marrom-esc);margin-bottom:2px;line-height:1.3" id="pe-nome"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--marrom);margin-bottom:10px" id="pe-preco"></div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+        <button class="qb" style="width:34px;height:34px;font-size:18px;flex-shrink:0" data-action="peQtdMinus">−</button>
+        <input id="pe-qtd" type="number" min="0.001" step="any" value="1"
+               style="flex:1;height:36px;text-align:center;font-size:18px;font-weight:700;border:1.5px solid var(--borda);border-radius:8px;background:var(--creme);outline:none;font-family:serif">
+        <button class="qb" style="width:34px;height:34px;font-size:18px;flex-shrink:0" data-action="peQtdPlus">+</button>
+        <span style="font-size:12px;color:var(--texto-clr);min-width:20px" id="pe-un"></span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-dourado" style="flex:1;height:42px;font-size:14px" data-action="peAdicionar">+ Adicionar</button>
+        <button class="btn btn-ghost" style="height:42px;width:42px;padding:0" data-action="peLimpar">✕</button>
+      </div>
+      <div style="margin-top:7px;font-size:11px;color:var(--texto-clr)" id="pe-estoque"></div>
+    </div>
+
+    <!-- CARRINHO -->
+    <div style="background:#fff;border-radius:12px;border:1px solid var(--creme-med);overflow:hidden;box-shadow:var(--sh)">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--creme);border-bottom:1px solid var(--creme-esc)">
+        <span style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--marrom-esc)">Carrinho</span>
+        <span class="cart-num-badge" id="cn">0 itens</span>
+      </div>
+      <div id="cart-body" style="max-height:220px;overflow-y:auto"></div>
+      <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px;background:var(--creme);border-top:1px solid var(--creme-esc)">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--texto-clr)">
+          <span>Produtos</span><span id="tf-itens" style="font-weight:600;color:var(--marrom-esc)">0</span>
+        </div>
+        <div style="background:var(--marrom-esc);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--dourado)">
+          <div>
+            <div style="font-size:10px;font-weight:700;color:rgba(212,168,83,.55);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">Total a pagar</div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--dourado);line-height:1" id="tf-total">R$ 0,00</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:10px;font-weight:700;color:rgba(212,168,83,.55);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">Itens</div>
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:rgba(212,168,83,.7)" id="tf-qtd">0</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:center">
+          <span style="font-size:12px;font-weight:600;color:var(--texto-clr);white-space:nowrap">Recebido R$</span>
+          <input class="troco-inp" id="recebido" type="number" placeholder="0,00" min="0" step="0.01" data-input="calcTroco" style="flex:1;height:34px;font-size:14px">
+          <span id="troco" style="font-size:12px;font-weight:700;min-width:70px;text-align:right;white-space:nowrap;color:var(--texto-clr)">—</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-danger" data-action="cancelar" style="height:40px;padding:0 12px;font-size:12px">✕ Cancelar</button>
+          <button class="btn btn-dourado" id="btn-fechar" data-action="fecharVenda" style="flex:1;height:40px;font-size:13px" disabled>✓ Fechar venda</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORIAS (compacto) -->
+    <div>
+      <div style="font-size:10px;font-weight:700;color:var(--texto-clr);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Categorias</div>
+      <div class="cat-pills" id="cat-pills" style="gap:4px"></div>
+    </div>
+
+    <!-- MINI GRID (só quando cat selecionada) -->
+    <div id="prod-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px"></div>
+
+  </div>
+</div>
+
+<!-- ══════ ESTOQUE ══════ -->
+<div id="estoque-sec" class="back-sec">
+  <div class="alert-b hid" id="alerta" style="flex-direction:column;gap:6px;cursor:pointer" data-action="toggleAlerta">
+  <div style="display:flex;align-items:center;gap:8px;width:100%">
+    <span>⚠</span>
+    <span id="alerta-resumo" style="flex:1;font-weight:700"></span>
+    <span id="alerta-toggle" style="font-size:11px;opacity:.7">▼ ver lista</span>
+  </div>
+  <div id="alerta-detalhe" style="display:none;font-size:12px;line-height:1.7;padding-top:4px;border-top:1px solid rgba(180,130,0,.3);width:100%">
+    <div id="alerta-zerados" style="margin-bottom:6px"></div>
+    <div id="alerta-baixos"></div>
+  </div>
+</div>
+  <div class="sum-grid">
+    <div class="sc"><div class="sc-l">Total produtos</div><div class="sc-v" id="s-tot">0</div></div>
+    <div class="sc b"><div class="sc-l">Valor em estoque</div><div class="sc-v" id="s-val">R$ 0</div></div>
+    <div class="sc a"><div class="sc-l">Estoque baixo</div><div class="sc-v av" id="s-bx">0</div></div>
+    <div class="sc p"><div class="sc-l">Zerado</div><div class="sc-v pe" id="s-zr">0</div></div>
+  </div>
+  <div class="tw">
+    <div class="thdr">
+      <span class="thdr-t">Produtos em estoque</span>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <div class="sw"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="#a07850" stroke-width="1.8"/><path d="M14 14l3.5 3.5" stroke="#a07850" stroke-width="1.8" stroke-linecap="round"/></svg><input id="bst" type="text" placeholder="Buscar…" data-input="renderTable"></div>
+        <select id="fcat" data-action="renderTable" style="height:34px;border:1.5px solid var(--borda);border-radius:8px;padding:0 9px;font-size:12px;background:var(--creme);outline:none;color:var(--texto);font-family:'Lato',sans-serif"><option value="">Todas categorias</option></select>
+      </div>
+    </div>
+    <table><thead><tr>
+      <th>Produto</th><th>Categoria</th><th>Cód.Barras</th>
+      <th class="r">Qtd</th><th class="r">Custo</th><th class="r">Preço venda</th><th class="r">Total est.</th><th class="r">Mín.</th><th class="r">Ações</th>
+    </tr></thead><tbody id="tbod"></tbody></table>
+    <div class="es hid" id="est-empty">Nenhum produto encontrado.</div>
+  </div>
+  <div class="panel">
+    <div class="panel-t">Entrada / ajuste de estoque</div>
+    <div class="adj-row">
+      <div class="field" style="flex:1;min-width:150px"><label>Produto</label><select id="adj-prod"><option value="">— selecione —</option></select></div>
+      <div class="field" style="width:78px"><label>Qtd</label><input id="adj-qtd" type="number" value="1" min="0.001" step="any" style="text-align:center"></div>
+      <div class="field" style="min-width:145px"><label>Tipo</label>
+        <select id="adj-tipo">
+          <option value="entrada">▲ Entrada (compra)</option>
+          <option value="ajuste">⟳ Ajuste inventário</option>
+          <option value="perda">✕ Perda / vencimento</option>
+        </select></div>
+      <div class="field" style="flex:1;min-width:110px"><label>Observação</label><input id="adj-obs" type="text" placeholder="Opcional"></div>
+      <button class="btn btn-marrom" data-action="registrarAdj">Registrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ MOVIMENTAÇÕES ══════ -->
+<div id="movs-sec" class="back-sec">
+  <div class="tw">
+    <div class="thdr">
+      <span class="thdr-t">Histórico completo</span>
+      <button class="btn btn-ghost btn-sm" data-action="limparHist">Limpar</button>
+    </div>
+    <div id="mv-list"><div class="es">Nenhuma movimentação ainda.</div></div>
+  </div>
+</div>
+
+<!-- ══════ CADASTRO ══════ -->
+<div id="cad-sec" class="back-sec">
+  <div class="panel">
+    <div class="panel-t">Cadastrar novo produto</div>
+    <div class="fg">
+      <div class="field full"><label>Nome do produto *</label><input id="cn-nome" type="text" placeholder="Ex: Frango caipira inteiro"></div>
+      <div class="field"><label>Categoria</label>
+        <select id="cn-cat">
+          <option value="Frango Caipira">Frango Caipira</option><option value="Frango Granja">Frango de Granja</option>
+          <option value="Queijos">Queijos</option><option value="Ovos">Ovos</option>
+          <option value="Doces">Doces Artesanais</option><option value="Outros">Outros Derivados</option>
+        </select></div>
+      <div class="field"><label>Código de barras</label><input id="cn-bc" type="text" placeholder="EAN-13 ou interno"></div>
+      <div class="field"><label>Unidade</label>
+        <select id="cn-un">
+          <option value="kg">kg</option><option value="un">un</option><option value="dz">dúzia</option>
+          <option value="cx">caixa</option><option value="pct">pacote</option><option value="L">litro</option>
+        </select></div>
+      <div class="field"><label>Custo unit. (R$)</label><input id="cn-cu" type="number" placeholder="0,00" min="0" step="0.01"></div>
+      <div class="field"><label>Preço de venda (R$)</label><input id="cn-pr" type="number" placeholder="0,00" min="0" step="0.01"></div>
+      <div class="field"><label>Estoque inicial</label><input id="cn-est" type="number" placeholder="0" min="0" step="any"></div>
+      <div class="field"><label>Mínimo para alerta</label><input id="cn-min" type="number" placeholder="0" min="0" step="any"></div>
+      <div class="field full"><label>Observações</label><input id="cn-obs" type="text" placeholder="Fornecedor, validade, etc."></div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-dourado" data-action="cadastrar">Salvar produto</button>
+      <button class="btn btn-ghost" data-action="limCad">Limpar</button>
+    </div>
+  </div>
+  <div class="tw">
+    <div class="thdr"><span class="thdr-t">Produtos cadastrados</span></div>
+    <table><thead><tr>
+      <th>Produto</th><th>Categoria</th><th>Unid.</th>
+      <th class="r">Custo</th><th class="r">Preço venda</th><th class="r">Margem</th><th class="r">Ações</th>
+    </tr></thead><tbody id="cad-bod"></tbody></table>
+  </div>
+</div>
+
+<!-- Modal editar -->
+<div class="overlay" id="m-edit">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-t">Editar produto</div>
+    <div class="modal-g">
+      <div class="field full"><label>Nome</label><input id="me-nome" type="text"></div>
+      <div class="field"><label>Categoria</label>
+        <select id="me-cat">
+          <option value="Frango Caipira">Frango Caipira</option><option value="Frango Granja">Frango de Granja</option>
+          <option value="Queijos">Queijos</option><option value="Ovos">Ovos</option>
+          <option value="Doces">Doces Artesanais</option><option value="Outros">Outros Derivados</option>
+        </select></div>
+      <div class="field"><label>Cód. barras</label><input id="me-bc" type="text"></div>
+      <div class="field"><label>Unidade</label>
+        <select id="me-un">
+          <option value="kg">kg</option><option value="un">un</option><option value="dz">dúzia</option>
+          <option value="cx">caixa</option><option value="pct">pacote</option><option value="L">litro</option>
+        </select></div>
+      <div class="field"><label>Custo (R$)</label><input id="me-cu" type="number" step="0.01"></div>
+      <div class="field"><label>Preço venda (R$)</label><input id="me-pr" type="number" step="0.01"></div>
+      <div class="field"><label>Estoque atual</label><input id="me-est" type="number" step="any"></div>
+      <div class="field"><label>Mínimo</label><input id="me-min" type="number" step="any"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-action="closeModal">Cancelar</button>
+      <button class="btn btn-dourado" data-action="salvarEdit">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal quantidade (kg/L) -->
+<div class="overlay" id="m-qtd">
+  <div class="modal" style="max-width:300px">
+    <div class="modal-t" id="mq-title">Quantidade</div>
+    <div class="field" style="margin-bottom:0">
+      <label>Quantidade</label>
+      <input id="mq-val" type="number" min="0.001" step="any"
+             style="height:56px;font-family:'Playfair Display',serif;font-size:24px;font-weight:700;text-align:center">
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-action="closeModal">Cancelar</button>
+      <button class="btn btn-dourado" data-action="confirmarQtd">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Venda fechada -->
+<div class="overlay" id="m-vok">
+  <div class="venda-ok">
+    <div class="vok-check">✓</div>
+    <div class="vok-label">Total da venda</div>
+    <div class="vok-total" id="vok-total">R$ 0,00</div>
+    <div class="vok-troco" id="vok-troco"></div>
+    <div class="vok-itens" id="vok-itens"></div>
+    <button class="btn btn-dourado btn-xl" style="width:100%" data-action="novaVenda">Nova venda →</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// ESTADO
+// ══════════════════════════════════════════════════════════════════
+// Migração: aceita tanto 'emp_p' quanto 'emp_produtos' (versão anterior)
+// CRÍTICO: garante que todos os ids são sempre Number para evitar
+// comparação estrita string !== number que quebra o carrinho
+function normalizeP(arr){
+  return arr.map(p=>({...p, id:Number(p.id)}));
+}
+function loadP(){
+  const a=localStorage.getItem('emp_p');
+  if(a) return normalizeP(JSON.parse(a));
+  const b=localStorage.getItem('emp_produtos');
+  if(b) return normalizeP(JSON.parse(b));
+  return [];
+}
+
+let P  = loadP();
+let MV = JSON.parse(localStorage.getItem('emp_mv') || localStorage.getItem('emp_movimentos') || '[]');
+let V  = JSON.parse(localStorage.getItem('emp_v')  || '[]');
+
+// carrinho: array de {pid, qtd}  — pid é SEMPRE Number
+let carr  = [];
+let catAt = 'Todos';
+let editId= null;
+let mqId  = null;
+let mqEd  = false;
+
+// Seed com exemplos se vazio
+if(!P.length){
+  P=[{"id":1,"nome":"Abóbora cabotia","cat":"Sacolão","bc":"697175","un":"un","cu":0,"pr":4.9,"est":0,"min":0,"obs":"150 gramas"},{"id":2,"nome":"Abobrinha (Bandeja)","cat":"Sacolão","bc":"297376","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":"a partir de"},{"id":3,"nome":"Açafrão Caipira","cat":"Temperos","bc":"297425","un":"un","cu":0,"pr":6.0,"est":0,"min":0,"obs":"50 gramas"},{"id":4,"nome":"Açafrão garrafa","cat":"Temperos","bc":"2071313","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":5,"nome":"Açafrão Grande - Casa Caipira","cat":"Temperos","bc":"240297","un":"un","cu":0,"pr":40.0,"est":0,"min":0,"obs":""},{"id":6,"nome":"Açafrão- Ibisco","cat":"Temperos","bc":"697430","un":"un","cu":0,"pr":8.75,"est":0,"min":0,"obs":""},{"id":7,"nome":"Açafrão- ibisco","cat":"Temperos","bc":"2071285","un":"un","cu":0,"pr":4.0,"est":0,"min":0,"obs":"20g"},{"id":8,"nome":"Açúcar Cristal - Delta","cat":"Conveniência","bc":"289423","un":"kg","cu":0,"pr":9.0,"est":0,"min":0,"obs":"2 quilos"},{"id":9,"nome":"Água mineral","cat":"Bebidas","bc":"2087210","un":"un","cu":0,"pr":3.5,"est":0,"min":0,"obs":"1,5L"},{"id":10,"nome":"Água Mineral - Cristal","cat":"Bebidas","bc":"293604","un":"un","cu":0,"pr":2.0,"est":0,"min":0,"obs":"500ml"},{"id":11,"nome":"Água Mineral com Gás - MINEIRO CRISTAL","cat":"Bebidas","bc":"293610","un":"un","cu":0,"pr":2.5,"est":0,"min":0,"obs":"500ml"},{"id":12,"nome":"Alho","cat":"Temperos","bc":"2071293","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"4 cabeças de alho"},{"id":13,"nome":"Alho descascado (bandeja) 200g","cat":"Temperos","bc":"2071365","un":"un","cu":0,"pr":15.99,"est":0,"min":0,"obs":""},{"id":14,"nome":"Ambrosia 330g","cat":"Doces","bc":"1969345","un":"un","cu":0,"pr":18.0,"est":1.0,"min":0,"obs":""},{"id":15,"nome":"Arroz Branco - Tipo 1 - Kehdi","cat":"Conveniência","bc":"289421","un":"kg","cu":0,"pr":31.5,"est":0,"min":0,"obs":"5 quilos"},{"id":16,"nome":"Bala de doce de Leite 400g","cat":"Doces","bc":"1969337","un":"un","cu":0,"pr":30.0,"est":0.0,"min":0,"obs":""},{"id":17,"nome":"Bala de doce de leite com castanha do Pará 400g","cat":"Doces","bc":"1969334","un":"un","cu":0,"pr":32.0,"est":1.0,"min":0,"obs":""},{"id":18,"nome":"Bala quebra-queixo 400g","cat":"Doces","bc":"2056627","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":""},{"id":19,"nome":"Balas Carameladas de Coco com Abacaxi - Cléo Balas","cat":"Doces","bc":"297416","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":"260 gramas"},{"id":20,"nome":"Balas Carameladas de Coco com Chocolate - Cléo Balas","cat":"Doces","bc":"363602","un":"un","cu":0,"pr":19.0,"est":0,"min":0,"obs":"260 gramas"},{"id":21,"nome":"Balas Carameladas de Coco com Leite Condensado - Cléo Balas","cat":"Doces","bc":"297415","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":"260 gramas"},{"id":22,"nome":"Balas carameladas de ninho - cléo balas","cat":"Doces","bc":"2056657","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":23,"nome":"Bananada Caseira","cat":"Doces","bc":"240885","un":"un","cu":0,"pr":16.0,"est":0,"min":0,"obs":"500 g a partir de"},{"id":24,"nome":"Banha de porco - Vó Zenaide","cat":"Suínos","bc":"2056552","un":"un","cu":0,"pr":13.5,"est":0,"min":0,"obs":"500ml"},{"id":25,"nome":"Banha De Porco- Vó zenaide","cat":"Suínos","bc":"2056554","un":"un","cu":0,"pr":45.0,"est":0,"min":0,"obs":"2L"},{"id":26,"nome":"Banha De Porco- Vó zenaide","cat":"Suínos","bc":"2056555","un":"un","cu":0,"pr":22.5,"est":0,"min":0,"obs":"1L"},{"id":27,"nome":"Barrinha Bananinha com Chocolate - Tachão de Ubatuba 25g","cat":"Doces","bc":"240863","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"Caixa fechada com 24 unidades 60,00"},{"id":28,"nome":"Barrinha de doce de Banana - Tachão de Ubatuba","cat":"Doces","bc":"240875","un":"un","cu":0,"pr":2.5,"est":0,"min":0,"obs":"20 g"},{"id":29,"nome":"Barrinhas de Banana sem Açúcar - Tachão de Ubatuba","cat":"Doces","bc":"240868","un":"un","cu":0,"pr":2.5,"est":0,"min":0,"obs":"20 g"},{"id":30,"nome":"Batata (Bandeja)","cat":"Sacolão","bc":"297368","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"a partir de"},{"id":31,"nome":"Batata Doce (Bandeja)","cat":"Sacolão","bc":"297379","un":"un","cu":0,"pr":6.0,"est":0,"min":0,"obs":"a partir de"},{"id":32,"nome":"Bicarbonato de Sódio - Ibisco","cat":"Temperos","bc":"697441","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":""},{"id":33,"nome":"Biscoito chimanguinho 200g","cat":"Quitandas e Biscoitos de Polvilho","bc":"1969705","un":"un","cu":0,"pr":11.0,"est":0,"min":0,"obs":""},{"id":34,"nome":"Biscoito de Nata amanteigado","cat":"Quitandas e Biscoitos de Polvilho","bc":"1980780","un":"un","cu":0,"pr":12.0,"est":0,"min":0,"obs":"Açúcar gelado Açúcar e canela 120gr"},{"id":35,"nome":"Biscoito de Nata amanteigado amendoim","cat":"Quitandas e Biscoitos de Polvilho","bc":"1980785","un":"un","cu":0,"pr":12.0,"est":0,"min":0,"obs":"120gr"},{"id":36,"nome":"Biscoito de Nata amanteigado Café","cat":"Quitandas e Biscoitos de Polvilho","bc":"1980782","un":"un","cu":0,"pr":12.0,"est":0,"min":0,"obs":"120gr"},{"id":37,"nome":"Biscoito de Nata amanteigado margarida","cat":"Quitandas e Biscoitos de Polvilho","bc":"1980783","un":"un","cu":0,"pr":12.0,"est":0,"min":0,"obs":"110gr"},{"id":38,"nome":"Biscoito de polvilho  - chimanguinho 200g","cat":"Quitandas e Biscoitos de Polvilho","bc":"2071053","un":"un","cu":0,"pr":11.0,"est":0,"min":0,"obs":""},{"id":39,"nome":"Biscoito de Polvilho Azedo - Linha Gourmet NF","cat":"Quitandas e Biscoitos de Polvilho","bc":"289339","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":"130 gramas"},{"id":40,"nome":"Biscoito de Polvilho Azedo Adocicado - Linha Gourmet NF","cat":"Quitandas e Biscoitos de Polvilho","bc":"289332","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":"130 gramas"},{"id":41,"nome":"Biscoito de Polvilho Azedo de queijo - NF Biscoitos","cat":"Quitandas e Biscoitos de Polvilho","bc":"289305","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":"100 gramas"},{"id":42,"nome":"Biscoito de Polvilho Azedo de Queijo com pimenta - NF Biscoitos","cat":"Quitandas e Biscoitos de Polvilho","bc":"289342","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":"100 gramas"},{"id":43,"nome":"Biscoito de polvilho com cebola- Biscui","cat":"Quitandas e Biscoitos de Polvilho","bc":"698022","un":"un","cu":0,"pr":15.0,"est":0,"min":0,"obs":""},{"id":44,"nome":"Biscoito de polvilho com pimenta- Biscui","cat":"Quitandas e Biscoitos de Polvilho","bc":"698017","un":"un","cu":0,"pr":15.0,"est":0,"min":0,"obs":""},{"id":45,"nome":"Biscoito de polvilho com queijo - Biscui","cat":"Quitandas e Biscoitos de Polvilho","bc":"698012","un":"un","cu":0,"pr":15.0,"est":0,"min":0,"obs":""},{"id":46,"nome":"Biscoito de polvilho de queijo BISCUI","cat":"Quitandas e Biscoitos de Polvilho","bc":"1969708","un":"un","cu":0,"pr":13.5,"est":0,"min":0,"obs":"200g"},{"id":47,"nome":"Biscoito de Polvilho Doce - NF Biscoitos","cat":"Quitandas e Biscoitos de Polvilho","bc":"289310","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"200 gramas"},{"id":48,"nome":"Biscoito de polvilho doce - paladin 120g","cat":"Quitandas e Biscoitos de Polvilho","bc":"2071051","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":""},{"id":49,"nome":"Biscoito de Polvilho Doce - Vovó Dalva","cat":"Quitandas e Biscoitos de Polvilho","bc":"289350","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"200 gramas"},{"id":50,"nome":"Biscoito de polvilho doce - Vovó Dalva","cat":"Quitandas e Biscoitos de Polvilho","bc":"698048","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"200g"},{"id":51,"nome":"Biscoito de Pouvilho doce- Caseirinho","cat":"Quitandas e Biscoitos de Polvilho","bc":"871639","un":"un","cu":0,"pr":13.5,"est":0,"min":0,"obs":"200g"},{"id":52,"nome":"Biscoito de Queijo ferradura  - tudo Congelados","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974849","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":"Pacote 1 kilo"},{"id":53,"nome":"Biscoito de Queijo ferradura  - Villa Rica","cat":"Pão de Queijo e Quitandas congeladas","bc":"291499","un":"kg","cu":0,"pr":22.5,"est":0,"min":0,"obs":"1 Quilo - Formato de Biscoito"},{"id":54,"nome":"Biscoito Palito- kimassa","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974774","un":"un","cu":0,"pr":22.5,"est":0,"min":0,"obs":"Pacote contém 1 kilo"},{"id":55,"nome":"Biscoito parmesão Congelado- tudo Congelados","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974796","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":"Pacote contém 1 kilo"},{"id":56,"nome":"Biscoito Sequilhos Caseiro","cat":"Quitandas e Biscoitos de Polvilho","bc":"289346","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":"130 gramas"},{"id":57,"nome":"Bolacha de nata - dunetinho 230g","cat":"Quitandas e Biscoitos de Polvilho","bc":"2071047","un":"un","cu":0,"pr":8.5,"est":0,"min":0,"obs":""},{"id":58,"nome":"Bolacha de Nata - NF 230g","cat":"Quitandas e Biscoitos de Polvilho","bc":"1969716","un":"un","cu":0,"pr":8.5,"est":0,"min":0,"obs":""},{"id":59,"nome":"Bolinho de Arroz com Mozarela com Pimenta Artesanal","cat":"Salgadinhos  e Mini pizzas e Tortas congelados","bc":"384457","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"24 unidades"},{"id":60,"nome":"Bolinho de Arroz com Mozarela sem Pimenta Artesanal","cat":"Salgadinhos  e Mini pizzas e Tortas congelados","bc":"384470","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"24 unidades"},{"id":61,"nome":"Bolinho de Bacalhau Artesanal","cat":"Salgadinhos  e Mini pizzas e Tortas congelados","bc":"384305","un":"un","cu":0,"pr":40.0,"est":0,"min":0,"obs":"24 unidades"},{"id":62,"nome":"Broa doce - 1kilo","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974770","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":""},{"id":63,"nome":"Broa doce - triângulo mineiro","cat":"Pão de Queijo e Quitandas congeladas","bc":"2071007","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"1 kg"},{"id":64,"nome":"Broa temperada - triângulo mineiro","cat":"Pão de Queijo e Quitandas congeladas","bc":"2071008","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"1kg"},{"id":65,"nome":"Cachaça Joaquim Dias - Carvalho","cat":"Cachaças","bc":"388096","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":"700 ml"},{"id":66,"nome":"Cachaça Joaquim Dias- Amburana","cat":"Cachaças","bc":"2056532","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":"700ml"},{"id":67,"nome":"Cachaça Joaquim Dias- Branca Pura","cat":"Cachaças","bc":"388054","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":"700 ml"},{"id":68,"nome":"Cachaça vale da canastra- 670ml","cat":"Cachaças","bc":"2071004","un":"un","cu":0,"pr":50.0,"est":0,"min":0,"obs":"Prata ( na capa)"},{"id":69,"nome":"Cachaça vale da canastra- 700ml","cat":"Cachaças","bc":"2071002","un":"un","cu":0,"pr":130.0,"est":0,"min":0,"obs":"Texas ouro"},{"id":70,"nome":"Cachaça vale da canastra- 720ml","cat":"Cachaças","bc":"2071000","un":"un","cu":0,"pr":60.0,"est":0,"min":0,"obs":"Paraiba Ouro"},{"id":71,"nome":"Cachaça Vanderley Azevedo - Arenito","cat":"Cachaças","bc":"2056528","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":"175ml"},{"id":72,"nome":"Cachaça Vanderley Azevedo - Basalto","cat":"Cachaças","bc":"2070988","un":"un","cu":0,"pr":85.0,"est":0,"min":0,"obs":""},{"id":73,"nome":"Cachaça Vanderley Azevedo- Amburana","cat":"Cachaças","bc":"2056541","un":"un","cu":0,"pr":75.0,"est":0,"min":0,"obs":"700ml"},{"id":74,"nome":"Cachaça Vanderley Azevedo- Arenito","cat":"Cachaças","bc":"2056537","un":"un","cu":0,"pr":60.0,"est":0,"min":0,"obs":"700ml"},{"id":75,"nome":"Cachaça Vanderley Azevedo- Basalto","cat":"Cachaças","bc":"2056535","un":"un","cu":0,"pr":85.0,"est":0,"min":0,"obs":"700ml"},{"id":76,"nome":"Cachaça Vanderley Azevedo- Cristal","cat":"Cachaças","bc":"2056539","un":"un","cu":0,"pr":60.0,"est":0,"min":0,"obs":"700ml"},{"id":77,"nome":"Café torrado e moído - Cajubá","cat":"Conveniência","bc":"289444","un":"un","cu":0,"pr":40.0,"est":0,"min":0,"obs":"500 gramas"},{"id":78,"nome":"Caldo de Carne - Maggi","cat":"Temperos","bc":"240558","un":"un","cu":0,"pr":2.0,"est":0,"min":0,"obs":"57 g  6 tabletes"},{"id":79,"nome":"Caldo de Galinha - Maggi","cat":"Temperos","bc":"240551","un":"un","cu":0,"pr":2.0,"est":0,"min":0,"obs":"57 g   6 tabletes"},{"id":80,"nome":"Canela - Ibisco","cat":"Temperos","bc":"240576","un":"un","cu":0,"pr":6.5,"est":0,"min":0,"obs":""},{"id":81,"nome":"Canela em pó  - Ibisco","cat":"Temperos","bc":"697435","un":"un","cu":0,"pr":9.6,"est":0,"min":0,"obs":""},{"id":82,"nome":"Canjica branca -300gr","cat":"Conveniência","bc":"1980525","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":""},{"id":83,"nome":"Canjiquinha-300gr","cat":"Conveniência","bc":"1980526","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":""},{"id":84,"nome":"Cápsulas de açafrão","cat":"Temperos","bc":"2071316","un":"un","cu":0,"pr":45.0,"est":0,"min":0,"obs":""},{"id":85,"nome":"Cará (Bandeja)","cat":"Sacolão","bc":"297383","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":"a partir de"},{"id":86,"nome":"Casadinho  400g CANASTRA","cat":"Quitandas e Biscoitos de Polvilho","bc":"1969714","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":"Temos de goiabada e chocolate"},{"id":87,"nome":"Casadinho de Leite - Doce Caseiro da Tia Vilma","cat":"Doces","bc":"297447","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"650 gramas"},{"id":88,"nome":"Cebola (Bandeja)","cat":"Sacolão","bc":"297366","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"a partir de"},{"id":89,"nome":"Cenoura (Bandeja)","cat":"Sacolão","bc":"297371","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"a partir de"},{"id":90,"nome":"Cerveja Amstel","cat":"Bebidas","bc":"2071379","un":"un","cu":0,"pr":4.5,"est":0,"min":0,"obs":"350ml"},{"id":91,"nome":"Cerveja Eisenbahn","cat":"Bebidas","bc":"696976","un":"un","cu":0,"pr":5.5,"est":0,"min":0,"obs":"355 ml"},{"id":92,"nome":"Cerveja Heineken","cat":"Bebidas","bc":"696969","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":"350ml"},{"id":93,"nome":"Cheiro verde - Pronto e Prático","cat":"Sacolão","bc":"697181","un":"un","cu":0,"pr":7.59,"est":0,"min":0,"obs":"100 gramas"},{"id":94,"nome":"Chimichurri com pimenta - Ibisco","cat":"Temperos","bc":"697443","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":""},{"id":95,"nome":"Chimichurri sem pimenta- ibisco","cat":"Temperos","bc":"2071319","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":""},{"id":96,"nome":"Chuchu (Bandeja)","cat":"Sacolão","bc":"297390","un":"un","cu":0,"pr":4.0,"est":0,"min":0,"obs":"a partir de"},{"id":97,"nome":"Coca cola","cat":"Bebidas","bc":"697686","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":"1,5 litro"},{"id":98,"nome":"Coca cola","cat":"Bebidas","bc":"697690","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":"1 litro"},{"id":99,"nome":"Coca cola","cat":"Bebidas","bc":"2087151","un":"un","cu":0,"pr":5.5,"est":0,"min":0,"obs":"600ml"},{"id":100,"nome":"Coca cola lata","cat":"Bebidas","bc":"293530","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"310ml"},{"id":101,"nome":"Coca cola mini lata","cat":"Bebidas","bc":"293526","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"220ml"},{"id":102,"nome":"Coca cola sem açúcar mini","cat":"Bebidas","bc":"697713","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"220 ml"},{"id":103,"nome":"Coca-Cola","cat":"Bebidas","bc":"297745","un":"un","cu":0,"pr":12.0,"est":0,"min":0,"obs":"2 litros"},{"id":104,"nome":"Coca-cola sem açúcar","cat":"Bebidas","bc":"697696","un":"un","cu":0,"pr":12.0,"est":0,"min":0,"obs":"2 litros"},{"id":105,"nome":"Coca-cola sem açúcar","cat":"Bebidas","bc":"697704","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":"1,5 litro"},{"id":106,"nome":"Colorau - ibisco","cat":"Temperos","bc":"2071277","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"60g"},{"id":107,"nome":"Colorau e Urucum - Casa Caipira","cat":"Temperos","bc":"240399","un":"un","cu":0,"pr":15.0,"est":0,"min":0,"obs":"Vidro 150 g"},{"id":108,"nome":"Conserva creme de pequi - Ibisco","cat":"Conservas","bc":"697562","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"170 gramas"},{"id":109,"nome":"Conserva pimenta de bico - ibisco","cat":"Temperos","bc":"2071331","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":110,"nome":"Conserva vegetais pequi - Ibisco","cat":"Conservas","bc":"697452","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"300 gramas"},{"id":111,"nome":"Coração de Frango de Granja","cat":"Aves","bc":"387902","un":"kg","cu":0,"pr":45.0,"est":0,"min":0,"obs":"Quilo"},{"id":112,"nome":"Couve flor","cat":"Sacolão","bc":"2071364","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":"A partir de"},{"id":113,"nome":"Couve picadinha- Pronto e Prático","cat":"Sacolão","bc":"697179","un":"un","cu":0,"pr":8.39,"est":0,"min":0,"obs":"150 gramas"},{"id":114,"nome":"Cravo flor - Ibisco","cat":"Temperos","bc":"697204","un":"un","cu":0,"pr":5.0,"est":0,"min":0,"obs":"20g"},{"id":115,"nome":"Creme canjica","cat":"Farinhas","bc":"1969568","un":"un","cu":0,"pr":10.5,"est":0,"min":0,"obs":""},{"id":116,"nome":"Creme de Leite - Nestle","cat":"Conveniência","bc":"289424","un":"un","cu":0,"pr":9.9,"est":0,"min":0,"obs":"200 gramas"},{"id":117,"nome":"Creme de pequi","cat":"Temperos","bc":"2071359","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":""},{"id":118,"nome":"Doce Amendoim com Leite - Doces Caseiros Tia Vilma","cat":"Doces","bc":"297449","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"650 gramas"},{"id":119,"nome":"Doce Compota de Goiaba - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240074","un":"un","cu":0,"pr":35.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":120,"nome":"Doce de Abacaxi - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240179","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":121,"nome":"Doce de abacaxi e coco - DIETHOUSE","cat":"Doces diet  e  Fit","bc":"2056653","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":122,"nome":"Doce de Abacaxi- DIETHOUSE","cat":"Doces diet  e  Fit","bc":"1980766","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":123,"nome":"Doce de abóbora com coco - DIETHOUSE","cat":"Doces diet  e  Fit","bc":"1980768","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":124,"nome":"Doce de Abóbora com Coco -Doces Caseiros Tia Vilma","cat":"Doces","bc":"240173","un":"un","cu":0,"pr":35.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":125,"nome":"Doce de Abóbora em Pedaços - Doces Caseiros Tia Vilma","cat":"Doces","bc":"297459","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"650 gramas"},{"id":126,"nome":"Doce de Ameixa com Leite - Tia Wilma","cat":"Doces","bc":"240159","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":127,"nome":"Doce de Banana - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240183","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":128,"nome":"Doce de banana 330g","cat":"Doces","bc":"1969396","un":"un","cu":0,"pr":18.0,"est":3.0,"min":0,"obs":""},{"id":129,"nome":"Doce de Bananada Caseira no Pote","cat":"Doces","bc":"240892","un":"un","cu":0,"pr":17.0,"est":0,"min":0,"obs":"500 g"},{"id":130,"nome":"Doce de bananada- DIETHOUSE","cat":"Doces diet  e  Fit","bc":"2056647","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":131,"nome":"Doce de caju- DIETHOUSE","cat":"Doces diet  e  Fit","bc":"2056646","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":132,"nome":"Doce de casca de laranja - doces caseiros Tia Vilma","cat":"Doces","bc":"2056427","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650g"},{"id":133,"nome":"Doce de figo - DIETHOUSE","cat":"Doces diet  e  Fit","bc":"1980756","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":"Sem adição de açúcar 250gr"},{"id":134,"nome":"Doce de Figo - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240069","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":135,"nome":"Doce de figo 700g","cat":"Doces","bc":"1969460","un":"un","cu":0,"pr":32.0,"est":4.0,"min":0,"obs":""},{"id":136,"nome":"Doce de Figo com Leite - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240137","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650g"},{"id":137,"nome":"Doce de goiaba 700g","cat":"Doces","bc":"1969458","un":"un","cu":0,"pr":32.0,"est":5.0,"min":0,"obs":""},{"id":138,"nome":"Doce de goiaba cremoso light 400g","cat":"Doces diet  e  Fit","bc":"1969301","un":"un","cu":0,"pr":30.0,"est":8.0,"min":0,"obs":"50% menos açúcar da tradicional"},{"id":139,"nome":"Doce de goiaba- DIETHOUSE","cat":"Doces diet  e  Fit","bc":"1980762","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":"Sem adição de açúcar 250gr"},{"id":140,"nome":"Doce de goiabada - DIETHOUSE","cat":"Doces diet  e  Fit","bc":"1980757","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":141,"nome":"Doce de goiabada cascão- DIETHOUSE","cat":"Doces diet  e  Fit","bc":"1980759","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":"Sem adição de açúcar 250gr"},{"id":142,"nome":"Doce de goiabada cascão- Ld canastra","cat":"Doces","bc":"2056655","un":"un","cu":0,"pr":14.0,"est":0,"min":0,"obs":""},{"id":143,"nome":"Doce de Goiabada Dona Lazara","cat":"Doces","bc":"365103","un":"un","cu":0,"pr":13.5,"est":0,"min":0,"obs":"150 g a partir de"},{"id":144,"nome":"Doce de laranja 330g","cat":"Doces","bc":"1969342","un":"un","cu":0,"pr":18.0,"est":1.0,"min":0,"obs":""},{"id":145,"nome":"Doce de laranja cremosa - DIETHOUSE","cat":"Doces diet  e  Fit","bc":"1980764","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":"Sem adição de açúcar 250gr"},{"id":146,"nome":"Doce de laranja kinkan - DIETHOUSE","cat":"Doces diet  e  Fit","bc":"2056651","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Zero açúcar"},{"id":147,"nome":"Doce de Leite - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240078","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 gr a partir de"},{"id":148,"nome":"Doce de leite - DOM pastoso","cat":"Doces","bc":"2056621","un":"un","cu":0,"pr":38.0,"est":0,"min":0,"obs":"420g"},{"id":149,"nome":"Doce de Leite Aviação","cat":"Doces","bc":"384568","un":"un","cu":0,"pr":35.0,"est":0,"min":0,"obs":"600 g a partir de"},{"id":150,"nome":"Doce de leite barra 400g","cat":"Doces","bc":"1969338","un":"un","cu":0,"pr":25.0,"est":3.0,"min":0,"obs":""},{"id":151,"nome":"Doce de leite c e  goiaba pastoso","cat":"Doces","bc":"2056601","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":"700g"},{"id":152,"nome":"Doce de Leite com Coco  - Doces Caseiros Tia Vilma","cat":"Doces","bc":"297455","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"650 gramas"},{"id":153,"nome":"Doce de Leite com coco - Doces caseiros Tia Vilma","cat":"Doces","bc":"240102","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":154,"nome":"Doce de Leite com Goiaba - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240141","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":155,"nome":"Doce de Leite com goiabada Dona Lazara","cat":"Doces","bc":"365111","un":"un","cu":0,"pr":13.5,"est":0,"min":0,"obs":"150 g a partir de"},{"id":156,"nome":"Doce de Leite com Mamão - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240139","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":157,"nome":"Doce de Leite com Mamão e Goiaba","cat":"Doces","bc":"240145","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":158,"nome":"Doce de Leite com Morango - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240150","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":159,"nome":"Doce de Leite Dona Lazara","cat":"Doces","bc":"365112","un":"un","cu":0,"pr":16.0,"est":0,"min":0,"obs":"150 g a partir de"},{"id":160,"nome":"Doce de leite em pasta- DOCISBELL","cat":"Doces diet  e  Fit","bc":"733059","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Sem adição de açúcar 220gr"},{"id":161,"nome":"Doce de leite em pedaços- 400g","cat":"Doces","bc":"2056628","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":""},{"id":162,"nome":"Doce de Leite Goiabada Dona Lazara","cat":"Doces","bc":"365107","un":"un","cu":0,"pr":13.5,"est":0,"min":0,"obs":"150 g"},{"id":163,"nome":"Doce de Leite na palha 150 g","cat":"Doces","bc":"1559750","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":164,"nome":"Doce de Leite na palha 500 g","cat":"Doces","bc":"1559753","un":"un","cu":0,"pr":60.0,"est":0,"min":0,"obs":""},{"id":165,"nome":"Doce de leite pingo 500g","cat":"Doces","bc":"1969341","un":"un","cu":0,"pr":80.0,"est":4.0,"min":0,"obs":"50 unidades por pote  10g cada barrinha"},{"id":166,"nome":"Doce de Leite Pingo Dona Lazara","cat":"Doces","bc":"365098","un":"un","cu":0,"pr":13.5,"est":0,"min":0,"obs":"150 g a partir de"},{"id":167,"nome":"Doce de Leite pingo na palha 150 g","cat":"Doces","bc":"1559756","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":168,"nome":"Doce de Leite pingo na palha 500 g","cat":"Doces","bc":"1559758","un":"un","cu":0,"pr":60.0,"est":0,"min":0,"obs":""},{"id":169,"nome":"Doce de leite talhado 330g","cat":"Doces","bc":"1969346","un":"un","cu":0,"pr":18.0,"est":2.0,"min":0,"obs":""},{"id":170,"nome":"Doce de leite tradicional na lata - 400g","cat":"Doces","bc":"2056615","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":""},{"id":171,"nome":"Doce de Leite Viçosa","cat":"Doces","bc":"384573","un":"un","cu":0,"pr":35.0,"est":0,"min":0,"obs":"400g"},{"id":172,"nome":"Doce de Leite, Ameixa, Abóbora e Mamão - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240167","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"VIdro 650 g"},{"id":173,"nome":"Doce de Mamão enrolado- Doces caseiros Tia Vilma","cat":"Doces","bc":"2056420","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650g"},{"id":174,"nome":"Doce de Mamão Ralado com Coco - Tia Wilma","cat":"Doces","bc":"240197","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":175,"nome":"Doce de Mamão ralado- Doces caseiros Tia Vilma","cat":"Doces","bc":"2056423","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650g"},{"id":176,"nome":"Doce de Maracujá com Leite - Doces caseiros Tia Vilma","cat":"Doces","bc":"240110","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":177,"nome":"Doce de Queijadinha - Doces Caseiros Tia Vilma","cat":"Doces","bc":"151335","un":"un","cu":0,"pr":35.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":178,"nome":"Doce de Queijo com Casca de Limão - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240010","un":"un","cu":0,"pr":35.0,"est":0,"min":0,"obs":"650g"},{"id":179,"nome":"Doce de Talhada - Doces Caseiros Tia Vilma","cat":"Doces","bc":"240083","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g a partir de"},{"id":180,"nome":"Doce dona Lázara- Abóbora c e  coco","cat":"Doces","bc":"1559688","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":""},{"id":181,"nome":"Doce Dona Lazara- bananada da roça","cat":"Doces","bc":"1559720","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":""},{"id":182,"nome":"Doce dona Lázara- cocada mineira branca","cat":"Doces","bc":"1559698","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":""},{"id":183,"nome":"Doce dona Lázara- Cocada morena","cat":"Doces","bc":"1559693","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":""},{"id":184,"nome":"Doce dona Lázara- doce de leite c e  café","cat":"Doces","bc":"1559685","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":""},{"id":185,"nome":"Doce dona Lázara- Doce de leite c e  coco","cat":"Doces","bc":"2056616","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":""},{"id":186,"nome":"Doce dona Lázara- doce de Leite cremoso","cat":"Doces","bc":"1559681","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":""},{"id":187,"nome":"Doce Dona Lazara- goiabada cremosa","cat":"Doces","bc":"1559717","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":""},{"id":188,"nome":"Doce em pedaços c e  leite 400g","cat":"Doces","bc":"1969319","un":"un","cu":0,"pr":23.0,"est":4.0,"min":0,"obs":""},{"id":189,"nome":"Doce em pedaços c e  leite e raspa de limão 400g","cat":"Doces","bc":"1969332","un":"un","cu":0,"pr":25.0,"est":2.0,"min":0,"obs":""},{"id":190,"nome":"Doce Geleia de mocotó 200 g","cat":"Doces","bc":"1559739","un":"un","cu":0,"pr":22.0,"est":0,"min":0,"obs":""},{"id":191,"nome":"Doce Geleia de mocotó com amendoim 200 g","cat":"Doces","bc":"1559744","un":"un","cu":0,"pr":16.0,"est":0,"min":0,"obs":""},{"id":192,"nome":"Doce Goiabada Cascão - dona Lázara  200 g","cat":"Doces","bc":"1559723","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":""},{"id":193,"nome":"Doce Goiabada Cascão - dona Lázara 500 g","cat":"Doces","bc":"1559726","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":194,"nome":"Doce Mangada cremosa Lata 400 g","cat":"Doces","bc":"1559710","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":""},{"id":195,"nome":"Doce pé de moleque - Dona Lázara","cat":"Doces","bc":"1559759","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"300 g"},{"id":196,"nome":"Doces de Pingo caseiro - Tia Vilma","cat":"Doces","bc":"240090","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Vidro 650 g"},{"id":197,"nome":"Extrato de própolis","cat":"Mel","bc":"2056579","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":"20ml"},{"id":198,"nome":"Extrato de Tomate Elefante","cat":"Conveniência","bc":"697071","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":""},{"id":199,"nome":"Fanta Laranja","cat":"Bebidas","bc":"297755","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":"2 litros"},{"id":200,"nome":"Fanta Lata","cat":"Bebidas","bc":"293521","un":"un","cu":0,"pr":2.5,"est":0,"min":0,"obs":"310ml"},{"id":201,"nome":"Fanta mini Lata","cat":"Bebidas","bc":"293515","un":"un","cu":0,"pr":2.0,"est":0,"min":0,"obs":"220ml"},{"id":202,"nome":"Farinha de Mandioca Biju - Manihot","cat":"Farinhas","bc":"240798","un":"un","cu":0,"pr":6.5,"est":0,"min":0,"obs":"350 g"},{"id":203,"nome":"Farinha de Mandioca com Pimenta - Manihot","cat":"Farinhas","bc":"240824","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":"350 g"},{"id":204,"nome":"Farinha de Mandioca com Pimenta temperada - D`Rocha","cat":"Farinhas","bc":"240775","un":"un","cu":0,"pr":16.5,"est":0,"min":0,"obs":"350 g"},{"id":205,"nome":"Farinha de Mandioca de Alho sem Pimenta - D`Rocha","cat":"Farinhas","bc":"240771","un":"un","cu":0,"pr":15.5,"est":0,"min":0,"obs":"350 g"},{"id":206,"nome":"Farinha de Mandioca Lisa goiana - Manihot","cat":"Farinhas","bc":"240803","un":"un","cu":0,"pr":6.5,"est":0,"min":0,"obs":"350 g"},{"id":207,"nome":"Farinha de Mandioca MANIHOT com bacon","cat":"Farinhas","bc":"1969573","un":"un","cu":0,"pr":6.5,"est":0,"min":0,"obs":"350g"},{"id":208,"nome":"Farinha de Mandioca MANIHOT costela sem pimenta","cat":"Farinhas","bc":"1969569","un":"un","cu":0,"pr":6.5,"est":0,"min":0,"obs":"350g"},{"id":209,"nome":"Farinha de Mandioca MANIHOT picante","cat":"Farinhas","bc":"1969574","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":"350g"},{"id":210,"nome":"Farinha de Mandioca Sem Pimenta - Manihot","cat":"Farinhas","bc":"240820","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":"350 g"},{"id":211,"nome":"Farinha de Mandioca sem Pimenta temperada- D`Rocha","cat":"Farinhas","bc":"240780","un":"un","cu":0,"pr":16.5,"est":0,"min":0,"obs":"350 g"},{"id":212,"nome":"Farinha de Milho Biju - Manihot","cat":"Farinhas","bc":"240790","un":"un","cu":0,"pr":6.5,"est":0,"min":0,"obs":"350 g"},{"id":213,"nome":"Farinha de Milho Lisa - Manihot","cat":"Farinhas","bc":"240783","un":"un","cu":0,"pr":6.5,"est":0,"min":0,"obs":"350 g"},{"id":214,"nome":"Farinha premium temperada com pimenta D'ROCHA","cat":"Farinhas","bc":"1969562","un":"un","cu":0,"pr":16.5,"est":0,"min":0,"obs":"300g"},{"id":215,"nome":"Farinha premium temperada sem pimenta D'ROCHA","cat":"Farinhas","bc":"1969561","un":"un","cu":0,"pr":16.5,"est":0,"min":0,"obs":"300g"},{"id":216,"nome":"Farinha temperada alho com pimenta D'ROCHA","cat":"Farinhas","bc":"1969567","un":"un","cu":0,"pr":16.5,"est":0,"min":0,"obs":"300g"},{"id":217,"nome":"Farinha temperada alho sem pimenta D'ROCHA","cat":"Farinhas","bc":"1969566","un":"un","cu":0,"pr":16.5,"est":0,"min":0,"obs":"300g"},{"id":218,"nome":"Feijão Preto - Pro life","cat":"Conveniência","bc":"289412","un":"kg","cu":0,"pr":12.5,"est":0,"min":0,"obs":"1 quilo"},{"id":219,"nome":"Feijão Vermelho - Pro Life","cat":"Conveniência","bc":"289420","un":"kg","cu":0,"pr":12.5,"est":0.0,"min":0,"obs":"1 quilo"},{"id":220,"nome":"Fígado de Frango de Granja","cat":"Aves","bc":"387898","un":"kg","cu":0,"pr":15.0,"est":0,"min":0,"obs":"Quilo"},{"id":221,"nome":"Folhas de Louro - Ibisco","cat":"Temperos","bc":"697208","un":"un","cu":0,"pr":1.5,"est":0,"min":0,"obs":""},{"id":222,"nome":"Fondant de leite - DIETHOUSE","cat":"Doces diet  e  Fit","bc":"1980747","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":223,"nome":"Frango Caipira (com pés, pescoço, moela, fígado e coração)-  Inteiro ou Picado","cat":"Aves","bc":"297501","un":"kg","cu":0,"pr":95.0,"est":0,"min":0,"obs":"a partir de"},{"id":224,"nome":"Frango de Granja Sapecado (com pés, pescoço, moela, fígado e coração) Inteiro ou Picado","cat":"Aves","bc":"297508","un":"kg","cu":0,"pr":25.0,"est":0,"min":0,"obs":"O quilo"},{"id":225,"nome":"Frango Semi-Caipira (com pés, pescoço, moela, fígado e coração) - Inteiro ou Picado","cat":"Aves","bc":"297499","un":"kg","cu":0,"pr":55.0,"est":0,"min":0,"obs":"a partir de"},{"id":226,"nome":"Galinha caipira sapecada (com pés, pescoço, moela, fígado e coração) picada com e sem ovinhos","cat":"Aves","bc":"2087414","un":"kg","cu":0,"pr":95.0,"est":0,"min":0,"obs":"A partir de"},{"id":227,"nome":"Geleia agridoce pimenta c e  abacaxi - DIETHOUSE","cat":"Doces diet  e  Fit","bc":"2056635","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":228,"nome":"Geleia de frutas vermelhas- DIETHOUSE","cat":"Doces diet  e  Fit","bc":"2056642","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":229,"nome":"Geleia de Pimenta - Casa de Minas","cat":"Geleias artesanais","bc":"369605","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"200 g"},{"id":230,"nome":"Geleia de Pimenta Defumada - Casa Minas","cat":"Geleias artesanais","bc":"369601","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"200 g"},{"id":231,"nome":"Geleia de Pimenta Fit - Casa Minas","cat":"Geleias artesanais","bc":"369590","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"200 g"},{"id":232,"nome":"Geleia de pimenta- DIETHOUSE","cat":"Doces diet  e  Fit","bc":"2056638","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Zero Açúcar"},{"id":233,"nome":"Geléia Monte Simão","cat":"Doces","bc":"240909","un":"un","cu":0,"pr":15.0,"est":0,"min":0,"obs":"120 g"},{"id":234,"nome":"Gengibre em pó- Ibisco","cat":"Temperos","bc":"697432","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":""},{"id":235,"nome":"Guaraná Kuat","cat":"Bebidas","bc":"293502","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"1 litro"},{"id":236,"nome":"Guaraná Mineiro","cat":"Bebidas","bc":"293567","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"269ml"},{"id":237,"nome":"Guaraná Mineiro","cat":"Bebidas","bc":"293612","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":"1,5 litro"},{"id":238,"nome":"Guaraná Mineiro","cat":"Bebidas","bc":"2087178","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":"2L"},{"id":239,"nome":"Guaraná Mineiro  Zero Açúcar","cat":"Bebidas","bc":"293628","un":"un","cu":0,"pr":6.0,"est":0,"min":0,"obs":"1,5 litros"},{"id":240,"nome":"Guaraná Mineiro Baby","cat":"Bebidas","bc":"293563","un":"un","cu":0,"pr":2.0,"est":0,"min":0,"obs":"250ml"},{"id":241,"nome":"Guariroba","cat":"Conservas","bc":"2071372","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Pre cozida"},{"id":242,"nome":"Guariroba saquinho","cat":"Sacolão","bc":"2071371","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":""},{"id":243,"nome":"Gueroba com pimenta- Raquel","cat":"Conservas","bc":"2071370","un":"un","cu":0,"pr":42.0,"est":0,"min":0,"obs":"Produzido com limão china 300g"},{"id":244,"nome":"Gueroba tradicional- Raquel","cat":"Conservas","bc":"2071368","un":"un","cu":0,"pr":42.0,"est":0,"min":0,"obs":"Produzido com limão China  300g"},{"id":245,"nome":"Hidrotonico Powerade","cat":"Bebidas","bc":"293554","un":"un","cu":0,"pr":4.0,"est":0,"min":0,"obs":"500ml"},{"id":246,"nome":"Inhame (Bandeja)","cat":"Sacolão","bc":"297386","un":"un","cu":0,"pr":6.0,"est":0,"min":0,"obs":"a partir de"},{"id":247,"nome":"Jiló (Bandeja)","cat":"Sacolão","bc":"297395","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"a partir de"},{"id":248,"nome":"Jiló Baby 540 g - Guiscond Condimentos e Conservas","cat":"Conservas","bc":"240764","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":"540 g a partir de"},{"id":249,"nome":"Jiló baby em conserva- ibisco","cat":"Temperos","bc":"2071340","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":""},{"id":250,"nome":"Jurubeba - Guiscond Condimentos e Conservas","cat":"Conservas","bc":"240766","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"200 ga partir de"},{"id":251,"nome":"Jurubeba em conserva- ibisco","cat":"Temperos","bc":"2071345","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":252,"nome":"Leite Condensado Integral Moça - Nestle","cat":"Conveniência","bc":"289427","un":"un","cu":0,"pr":6.5,"est":0,"min":0,"obs":"395 gramas"},{"id":253,"nome":"Lemon Fresh Sprite","cat":"Bebidas","bc":"293598","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"510ml"},{"id":254,"nome":"Limão (Bandeja)","cat":"Sacolão","bc":"297400","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":"A partir de"},{"id":255,"nome":"Linguiça de Pernil Suíno apimentada - Fiel Carnes","cat":"Suínos","bc":"289477","un":"kg","cu":0,"pr":38.0,"est":0,"min":0,"obs":"kg a partir de"},{"id":256,"nome":"Linguiça de Pernil Suíno sem pimenta - Fiel Carnes","cat":"Suínos","bc":"289468","un":"kg","cu":0,"pr":38.0,"est":0,"min":0,"obs":"Kg a partir de"},{"id":257,"nome":"Linguiça Frango Artesanal Gourmet- Dunateli-  500G","cat":"Aves","bc":"1020540","un":"kg","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Com Pimenta Biquinho, Queijo Coalho e Bacon"},{"id":258,"nome":"Linguiça Frango Artesanal Gourmet- Dunateli-  500G","cat":"Aves","bc":"1020559","un":"kg","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Com Pequi  e Bacon"},{"id":259,"nome":"Linguiça Frango Artesanal Gourmet- Dunateli-  500G","cat":"Aves","bc":"1020569","un":"kg","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Com Bacon"},{"id":260,"nome":"Linguiça Frango Artesanal Gourmet- Dunateli-  500G","cat":"Aves","bc":"1020574","un":"kg","cu":0,"pr":28.0,"est":0,"min":0,"obs":"Com Provolone e Bacon"},{"id":261,"nome":"Linguiça Frango Artesanal Gourmet- Dunateli- 500G","cat":"Suínos","bc":"1974953","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":"Frango com bacon"},{"id":262,"nome":"Linguiça Pernil Artesanal Gourmet- Dunateli-  500G","cat":"Suínos","bc":"1020581","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":"Com Bacon"},{"id":263,"nome":"Linguiça Pernil Artesanal Gourmet- Dunateli-  500G","cat":"Suínos","bc":"1020583","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":"Com Pimenta Biquinho, Queijo Coalho e Bacon"},{"id":264,"nome":"Linguiça pernil Artesanal Gourmet- Dunateli- 500G","cat":"Suínos","bc":"1974952","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Pernil pura"},{"id":265,"nome":"Macarrão de sêmola - nro 5","cat":"Conveniência","bc":"1974957","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":"1 kilo"},{"id":266,"nome":"Maionese HELLMANN'S","cat":"Conveniência","bc":"2071123","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":""},{"id":267,"nome":"Mandioca descascado","cat":"Suínos","bc":"1974951","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"700g"},{"id":268,"nome":"Manjericão- Ibisco","cat":"Temperos","bc":"697210","un":"un","cu":0,"pr":2.0,"est":0,"min":0,"obs":""},{"id":269,"nome":"Manteiga artesanal de Leite NOVO HORIZONTE","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"714639","un":"un","cu":0,"pr":17.0,"est":0,"min":0,"obs":"250 gramas"},{"id":270,"nome":"Manteiga de garrafa- Essência da Serra","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2056572","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":"200g"},{"id":271,"nome":"Manteiga de leite artesanal FAZENDA NOSSA Sra APARECIDA","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2087133","un":"un","cu":0,"pr":17.0,"est":0,"min":0,"obs":"350gr"},{"id":272,"nome":"Manteiga de leite Coromandel","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2079636","un":"un","cu":0,"pr":55.0,"est":0,"min":0,"obs":"Kg"},{"id":273,"nome":"Massa com ovos - espaguete vilma  nro 8","cat":"Conveniência","bc":"1974956","un":"un","cu":0,"pr":6.0,"est":0,"min":0,"obs":""},{"id":274,"nome":"Massa com ovos espaguete nro 3 - Vilma","cat":"Conveniência","bc":"289436","un":"un","cu":0,"pr":6.0,"est":0,"min":0,"obs":"500 gramas"},{"id":275,"nome":"Masters of Pasta Spaghetti n.5 - Barilla","cat":"Conveniência","bc":"289440","un":"un","cu":0,"pr":15.0,"est":0,"min":0,"obs":"500 gramas"},{"id":276,"nome":"Mel Flor do Cerrado - Apiário Quatro Irmãos Rida","cat":"Mel","bc":"240260","un":"un","cu":0,"pr":40.0,"est":0,"min":0,"obs":"1000 g"},{"id":277,"nome":"Mel Flor do Cerrado - Apiário Quatro Irmãos Rida","cat":"Mel","bc":"240272","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"500 g"},{"id":278,"nome":"MELADO - FIOS DE OURO","cat":"Mel","bc":"2056574","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":"380g"},{"id":279,"nome":"Melado de cana - Trem de Minas","cat":"Mel","bc":"2056581","un":"un","cu":0,"pr":14.0,"est":0,"min":0,"obs":"210ml"},{"id":280,"nome":"Milho de pipoca -300gr","cat":"Conveniência","bc":"1980527","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":""},{"id":281,"nome":"Milho Verde (Bandeja)","cat":"Sacolão","bc":"297859","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":"5 unid a partir de"},{"id":282,"nome":"Mini coxinha de frango - 24 unidades","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974864","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":""},{"id":283,"nome":"Mini Pizza Artesanal Calabreza","cat":"Salgadinhos  e Mini pizzas e Tortas congelados","bc":"365516","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"unidade"},{"id":284,"nome":"Mini Pizza Artesanal Frango","cat":"Salgadinhos  e Mini pizzas e Tortas congelados","bc":"365517","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"unidade"},{"id":285,"nome":"Mini Pizza Artesanal Mozarela","cat":"Salgadinhos  e Mini pizzas e Tortas congelados","bc":"368303","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"unidade"},{"id":286,"nome":"Mini Pizza Artesanal Presunto","cat":"Salgadinhos  e Mini pizzas e Tortas congelados","bc":"368308","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"unidade"},{"id":287,"nome":"Moela de Frango de Granja","cat":"Aves","bc":"387895","un":"kg","cu":0,"pr":25.0,"est":0,"min":0,"obs":"Quilo"},{"id":288,"nome":"Molho de alho cremosao","cat":"Temperos","bc":"2071308","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":""},{"id":289,"nome":"Molho de pimenta cremoso - ibisco","cat":"Temperos","bc":"2071300","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":"Elaborado com vinagre aromático e ervas frescas"},{"id":290,"nome":"Molho de pimenta vermelha - Ibisco","cat":"Temperos","bc":"697446","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":""},{"id":291,"nome":"Molho de tomate","cat":"Pão de Queijo e Quitandas congeladas","bc":"2056263","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"Molho de tomate pronto"},{"id":292,"nome":"Molho de Tomate com pedaços- Heinz","cat":"Conveniência","bc":"289431","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":""},{"id":293,"nome":"Molho de tomate passará - pomarola 700gr","cat":"Conveniência","bc":"1980506","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":294,"nome":"Molho de tomate passata rústica- predilecta","cat":"Conveniência","bc":"1980507","un":"un","cu":0,"pr":4.0,"est":0,"min":0,"obs":"300gr"},{"id":295,"nome":"Molho de tomate- pamarola 300g","cat":"Conveniência","bc":"2071115","un":"un","cu":0,"pr":3.5,"est":0,"min":0,"obs":""},{"id":296,"nome":"Monster Energy","cat":"Bebidas","bc":"696983","un":"un","cu":0,"pr":11.0,"est":0,"min":0,"obs":"473 ml"},{"id":297,"nome":"Nhoque de batata c e  mussarela- 500g","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974853","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":""},{"id":298,"nome":"Nhoque de batata tradicional 500g","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974852","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"Tradicional"},{"id":299,"nome":"Nhoque de Mandioca c e  4 queijos - 500g","cat":"Pão de Queijo e Quitandas congeladas","bc":"2056387","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":""},{"id":300,"nome":"Nhoque de Mandioca c e  mussarela - 500g","cat":"Pão de Queijo e Quitandas congeladas","bc":"2056230","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":""},{"id":301,"nome":"Noz Moscada - Ibisco","cat":"Temperos","bc":"240620","un":"un","cu":0,"pr":4.5,"est":0,"min":0,"obs":"2 unidades"},{"id":302,"nome":"Óleo de soja - liza","cat":"Conveniência","bc":"2071091","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":""},{"id":303,"nome":"Orégano - Ibisco","cat":"Temperos","bc":"697206","un":"un","cu":0,"pr":2.2,"est":0,"min":0,"obs":""},{"id":304,"nome":"Orégano - Ibisco","cat":"Temperos","bc":"697445","un":"un","cu":0,"pr":5.0,"est":0,"min":0,"obs":""},{"id":305,"nome":"Ovos  Caipiras Legítimos","cat":"Ovos","bc":"297412","un":"dz","cu":0,"pr":20.0,"est":0,"min":0,"obs":"Dz a partir de"},{"id":306,"nome":"Paçoca cremosa de colher zero açúcar MAESTRO 260g","cat":"Doces","bc":"1969293","un":"un","cu":0,"pr":16.0,"est":0.0,"min":0,"obs":""},{"id":307,"nome":"Paçoca cremosa em barra gourmet zero açúcar MAESTRO 400g","cat":"Doces","bc":"1969296","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":""},{"id":308,"nome":"Paçoca cremosa gourmet MAESTRO 400g","cat":"Doces","bc":"1969291","un":"un","cu":0,"pr":15.0,"est":0,"min":0,"obs":""},{"id":309,"nome":"Palito de provolone congelado","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974851","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"1 kilo"},{"id":310,"nome":"Pão  de Queijo Congelado - kimassa 30 gramas","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974772","un":"un","cu":0,"pr":22.5,"est":0,"min":0,"obs":"Pacote contém 1 kilo"},{"id":311,"nome":"Pão  de Queijo congelado 10 gramas (Pipoquinha)- Villa Rica","cat":"Pão de Queijo e Quitandas congeladas","bc":"697137","un":"un","cu":0,"pr":22.5,"est":0,"min":0,"obs":"Pacote contém 1kl"},{"id":312,"nome":"Pão de queijo 4 queijos Congelado - ENCANTO DE MINAS","cat":"Pão de Queijo e Quitandas congeladas","bc":"2056275","un":"un","cu":0,"pr":40.0,"est":0,"min":0,"obs":""},{"id":313,"nome":"Pão de queijo Congelado - kimassa","cat":"Pão de Queijo e Quitandas congeladas","bc":"2056285","un":"un","cu":0,"pr":40.0,"est":0,"min":0,"obs":"Requeijão e frango"},{"id":314,"nome":"Pão de Queijo Congelado - kimassa 25 gramas","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974771","un":"un","cu":0,"pr":22.5,"est":0,"min":0,"obs":"Pacote contém 1 kilo"},{"id":315,"nome":"Pão de Queijo Congelado - Villa Rica 25 gramas","cat":"Pão de Queijo e Quitandas congeladas","bc":"291490","un":"un","cu":0,"pr":22.5,"est":0,"min":0,"obs":"Pacote contém 1 kilo"},{"id":316,"nome":"Pão de Queijo Congelado - Villa Rica 60 gramas","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974767","un":"un","cu":0,"pr":45.0,"est":0,"min":0,"obs":"Pacote contém 2 kilos"},{"id":317,"nome":"Pão de queijo Congelado- tudo Congelados 10 gramas (Pipoquinha)","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974792","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":"Pacote contém 1 kilo"},{"id":318,"nome":"Pão de queijo Congelado- tudo Congelados 25 gramas","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974795","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":"Pacote contém 1 kilo"},{"id":319,"nome":"Pão de queijo Congelado- Wilson Cardoso","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974850","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":"Feito com queijo canastra Pacote contém 1 kilo"},{"id":320,"nome":"Paprica Doce- ibisco","cat":"Temperos","bc":"2071322","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":""},{"id":321,"nome":"Paprica Picante - Ibisco","cat":"Temperos","bc":"697431","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":""},{"id":322,"nome":"Pé de frango de granja","cat":"Aves","bc":"387893","un":"kg","cu":0,"pr":17.5,"est":0,"min":0,"obs":"Quilo"},{"id":323,"nome":"Pepino (bandeja)","cat":"Sacolão","bc":"2071362","un":"un","cu":0,"pr":5.0,"est":0,"min":0,"obs":"A partir de"},{"id":324,"nome":"Pequi congelado a vácuo","cat":"Sacolão","bc":"2087233","un":"un","cu":0,"pr":22.0,"est":0,"min":0,"obs":"A partir de 500g"},{"id":325,"nome":"Pequi em conserva fatiado","cat":"Temperos","bc":"2071357","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":""},{"id":326,"nome":"Pernil suíno na lata - 500g","cat":"Suínos","bc":"2056558","un":"un","cu":0,"pr":50.0,"est":0,"min":0,"obs":"Pernil suíno conservado em banha de porco"},{"id":327,"nome":"Petisco de queijo provolone fresco defumado desidratado c e  goiabada","cat":"Quitandas e Biscoitos de Polvilho","bc":"2071055","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":""},{"id":328,"nome":"Petisco de queijo provolone fresco defumado- Ld canastra","cat":"Quitandas e Biscoitos de Polvilho","bc":"2056590","un":"un","cu":0,"pr":23.0,"est":0,"min":0,"obs":""},{"id":329,"nome":"Pimenta batida arriba saia","cat":"Temperos","bc":"2071294","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":""},{"id":330,"nome":"Pimenta Bico 185 g - ibisco","cat":"Conservas","bc":"697049","un":"un","cu":0,"pr":16.0,"est":0,"min":0,"obs":""},{"id":331,"nome":"Pimenta Bode (Bandeja)","cat":"Sacolão","bc":"297403","un":"un","cu":0,"pr":4.0,"est":0,"min":0,"obs":"a partir de"},{"id":332,"nome":"Pimenta Bode conserva - Ibisco","cat":"Conservas","bc":"240762","un":"un","cu":0,"pr":16.0,"est":0,"min":0,"obs":"170 g ga partir de"},{"id":333,"nome":"Pimenta bode mineira - ibisco","cat":"Temperos","bc":"2071332","un":"un","cu":0,"pr":16.0,"est":0,"min":0,"obs":""},{"id":334,"nome":"Pimenta calabreza- ibisco","cat":"Temperos","bc":"2071317","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":""},{"id":335,"nome":"Pimenta conserva dedo de moça- ibisco","cat":"Temperos","bc":"2071327","un":"un","cu":0,"pr":22.0,"est":0,"min":0,"obs":""},{"id":336,"nome":"Pimenta cumari - ibisco","cat":"Temperos","bc":"2071334","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":337,"nome":"Pimenta Cumari de conserva - Ibisco","cat":"Conservas","bc":"240759","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"80 g a partir de"},{"id":338,"nome":"Pimenta cumari do Pará- ibisco","cat":"Temperos","bc":"2071333","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":""},{"id":339,"nome":"Pimenta Dedo de Moça- Ibisco 350g","cat":"Conservas","bc":"697052","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":""},{"id":340,"nome":"Pimenta do reino- ibisco","cat":"Temperos","bc":"2071281","un":"un","cu":0,"pr":6.0,"est":0,"min":0,"obs":"20g"},{"id":341,"nome":"Pimenta do reino- ibisco","cat":"Temperos","bc":"2071320","un":"un","cu":0,"pr":15.0,"est":0,"min":0,"obs":""},{"id":342,"nome":"Pimenta malagueta curtida no óleo - Uai Trem","cat":"Conservas","bc":"697045","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"170 g"},{"id":343,"nome":"Pimenta malaguetinha - ibisco","cat":"Temperos","bc":"2071337","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":""},{"id":344,"nome":"Pimenta variedades- Ibisco","cat":"Conservas","bc":"697043","un":"un","cu":0,"pr":12.25,"est":0,"min":0,"obs":"80 g"},{"id":345,"nome":"Pimentão verde(bandeja)","cat":"Sacolão","bc":"2071363","un":"un","cu":0,"pr":4.0,"est":0,"min":0,"obs":"A partir de"},{"id":346,"nome":"Polvilho azedo","cat":"Conveniência","bc":"1980567","un":"un","cu":0,"pr":12.0,"est":0,"min":0,"obs":"1 kilo"},{"id":347,"nome":"Polvilho doce - MANIHOT","cat":"Conveniência","bc":"1980555","un":"un","cu":0,"pr":16.0,"est":0,"min":0,"obs":"1 kilo"},{"id":348,"nome":"Polvilho Doce - Manihot","cat":"Polvilhos","bc":"289404","un":"kg","cu":0,"pr":12.0,"est":0,"min":0,"obs":"1 quilo"},{"id":349,"nome":"Power ade tangerina","cat":"Bebidas","bc":"2087211","un":"un","cu":0,"pr":6.5,"est":0,"min":0,"obs":"500ml"},{"id":350,"nome":"Pururuca -120g","cat":"Conveniência","bc":"2056548","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":""},{"id":351,"nome":"Pururuca -50g","cat":"Conveniência","bc":"2056594","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":""},{"id":352,"nome":"Pururuca- 120g","cat":"Conveniência","bc":"2056546","un":"un","cu":0,"pr":20.0,"est":0,"min":0,"obs":"Sabor limão"},{"id":353,"nome":"Pururuca- 50g","cat":"Conveniência","bc":"2056592","un":"un","cu":0,"pr":8.0,"est":0,"min":0,"obs":"Sabor limão"},{"id":354,"nome":"Queijo Colombiano Caseiro  - Grande (370 g)","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"363567","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":"unidade"},{"id":355,"nome":"Queijo Colombiano caseiro temperado - grande (370g)","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2145188","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"A unidade"},{"id":356,"nome":"Queijo colombiano temperado -280gr","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"1980741","un":"un","cu":0,"pr":24.0,"est":0,"min":0,"obs":""},{"id":357,"nome":"Queijo fresco","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2079631","un":"un","cu":0,"pr":32.0,"est":0,"min":0,"obs":"Em média 1 kg"},{"id":358,"nome":"Queijo Fresco","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"368827","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":"Em média 600g"},{"id":359,"nome":"Queijo fresco temperado","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2079630","un":"un","cu":0,"pr":28.0,"est":0,"min":0,"obs":"Em média 600g"},{"id":360,"nome":"Queijo Meia Cura","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"368834","un":"kg","cu":0,"pr":55.0,"est":0,"min":0,"obs":"kg a partir de"},{"id":361,"nome":"Queijo Meia Cura Ralado - Casa Caipira","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"297339","un":"kg","cu":0,"pr":55.0,"est":0,"min":0,"obs":"Por quilo"},{"id":362,"nome":"Queijo Minas Artesanal Curado Mutuca","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"363171","un":"kg","cu":0,"pr":60.0,"est":0,"min":0,"obs":"Quilo"},{"id":363,"nome":"Queijo Minas Artesanal Defumado Mutuca","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"363177","un":"kg","cu":0,"pr":60.0,"est":0,"min":0,"obs":"Quilo"},{"id":364,"nome":"Queijo Minas Artesanal DUZÉ","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"368845","un":"un","cu":0,"pr":55.0,"est":0,"min":0,"obs":"kg"},{"id":365,"nome":"Queijo Minas Padrão tipo mussarela","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2079647","un":"un","cu":0,"pr":60.0,"est":0,"min":0,"obs":"Kg"},{"id":366,"nome":"Queijo Trança","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"313697","un":"un","cu":0,"pr":70.0,"est":0,"min":0,"obs":"KG (Peça a partir de 10,00)"},{"id":367,"nome":"Quiabo (Bandeja)","cat":"Sacolão","bc":"297389","un":"un","cu":0,"pr":5.0,"est":0,"min":0,"obs":"a partir de"},{"id":368,"nome":"Quiabo picadinho- Pronto e Prático","cat":"Sacolão","bc":"697163","un":"un","cu":0,"pr":7.05,"est":0,"min":0,"obs":"150 gramas"},{"id":369,"nome":"Quibe recheado com mussarela- 24 unidades","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974863","un":"un","cu":0,"pr":33.0,"est":0,"min":0,"obs":""},{"id":370,"nome":"Rapadura pura caseira","cat":"Doces","bc":"2056656","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":""},{"id":371,"nome":"Requeijão Caseiro sheila","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2079640","un":"un","cu":0,"pr":30.0,"est":0,"min":0,"obs":"Pequeno Em média 300g"},{"id":372,"nome":"Requeijão Caseiro sheila","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"297361","un":"un","cu":0,"pr":42.0,"est":0,"min":0,"obs":"Médio Em média 500 g"},{"id":373,"nome":"Requeijão Caseiro sheila bandeja","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2145192","un":"un","cu":0,"pr":80.0,"est":0,"min":0,"obs":"Grande Em Média 700g"},{"id":374,"nome":"Requeijão em barra","cat":"Queijos  e Requeijão e Manteiga de Leite","bc":"2079649","un":"un","cu":0,"pr":38.0,"est":0,"min":0,"obs":"A partir de"},{"id":375,"nome":"Rocambole de frango grande","cat":"Aves","bc":"2056159","un":"kg","cu":0,"pr":75.0,"est":0,"min":0,"obs":"Rocambole de frango com Presunto, mussarela, bacon, azeitona"},{"id":376,"nome":"Rocambole de frango grande","cat":"Aves","bc":"2056161","un":"kg","cu":0,"pr":75.0,"est":0,"min":0,"obs":"Rocambole de frango com Brócolis, ricota, cenoura e azeitona"},{"id":377,"nome":"Rocambole de frango pequeno","cat":"Aves","bc":"2056143","un":"kg","cu":0,"pr":60.0,"est":0,"min":0,"obs":"Rocambole de frango com Calabresa, azeitona, mussarela e bac"},{"id":378,"nome":"Rocambole de frango pequeno","cat":"Aves","bc":"2056147","un":"kg","cu":0,"pr":60.0,"est":0,"min":0,"obs":"Rocambole de frango com Presunto,  mussarela, bacon, az"},{"id":379,"nome":"Rocambole de frango pequeno","cat":"Aves","bc":"2056154","un":"kg","cu":0,"pr":60.0,"est":0,"min":0,"obs":"Rocambole de frango com Brócolis, ricota, cenoura e azeitona"},{"id":380,"nome":"Rondellis - 500g","cat":"Pão de Queijo e Quitandas congeladas","bc":"1974855","un":"un","cu":0,"pr":40.0,"est":0,"min":0,"obs":"Sabores:Quatro queijos Frango c e  requeijão Presunt"},{"id":381,"nome":"Rosca Caseira Congelada - Vila Rica","cat":"Pão de Queijo e Quitandas congeladas","bc":"384284","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":"6 unidades"},{"id":382,"nome":"Rosquinha de Nata 215g CANASTRA","cat":"Quitandas e Biscoitos de Polvilho","bc":"1969713","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":""},{"id":383,"nome":"Sal lebre Marinho","cat":"Conveniência","bc":"697064","un":"un","cu":0,"pr":2.5,"est":0,"min":0,"obs":""},{"id":384,"nome":"Sal refinado 1kg","cat":"Conveniência","bc":"2071094","un":"un","cu":0,"pr":2.0,"est":0,"min":0,"obs":""},{"id":385,"nome":"Sal Rosa do Himalaia - Ibisco","cat":"Temperos","bc":"697437","un":"un","cu":0,"pr":6.6,"est":0,"min":0,"obs":""},{"id":386,"nome":"Sequilhos caseiro 100g","cat":"Quitandas e Biscoitos de Polvilho","bc":"1969717","un":"un","cu":0,"pr":10.0,"est":0,"min":0,"obs":""},{"id":387,"nome":"Shweppes Citrus","cat":"Bebidas","bc":"293545","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"310ml"},{"id":388,"nome":"Sprite","cat":"Bebidas","bc":"2087213","un":"un","cu":0,"pr":3.5,"est":0,"min":0,"obs":"310ml"},{"id":389,"nome":"Suco de Laranja Integral - Prats","cat":"Bebidas","bc":"293459","un":"un","cu":0,"pr":18.0,"est":0,"min":0,"obs":"900 mls"},{"id":390,"nome":"Suco de laranja Prats","cat":"Bebidas","bc":"696960","un":"un","cu":0,"pr":7.5,"est":0,"min":0,"obs":"300 ml"},{"id":391,"nome":"Suco de laranja prats","cat":"Bebidas","bc":"2087154","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"1,5L"},{"id":392,"nome":"Suco de uva DEL VALLE","cat":"Bebidas","bc":"2087160","un":"un","cu":0,"pr":4.5,"est":0,"min":0,"obs":"290ml"},{"id":393,"nome":"Suco de uva DEL VALLE","cat":"Bebidas","bc":"2087164","un":"un","cu":0,"pr":9.0,"est":0,"min":0,"obs":"1L"},{"id":394,"nome":"Suco de uva prats","cat":"Bebidas","bc":"2087155","un":"un","cu":0,"pr":8.5,"est":0,"min":0,"obs":"300ml"},{"id":395,"nome":"Suco de uva prats","cat":"Bebidas","bc":"2087156","un":"un","cu":0,"pr":24.5,"est":0,"min":0,"obs":"900ml"},{"id":396,"nome":"Suflê de pimenta dedo de moça- ibisco","cat":"Temperos","bc":"2071328","un":"un","cu":0,"pr":22.0,"est":0,"min":0,"obs":""},{"id":397,"nome":"Tomate (Bandeja)","cat":"Sacolão","bc":"297398","un":"un","cu":0,"pr":6.0,"est":0,"min":0,"obs":"a partir de"},{"id":398,"nome":"Tônica Shweppes Lata","cat":"Bebidas","bc":"293538","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"350ml"},{"id":399,"nome":"Tônica Shweppes Lata","cat":"Bebidas","bc":"293539","un":"un","cu":0,"pr":3.0,"est":0,"min":0,"obs":"310ml"},{"id":400,"nome":"Urucum Caipira","cat":"Temperos","bc":"297421","un":"un","cu":0,"pr":6.0,"est":0,"min":0,"obs":"50 gramas"},{"id":401,"nome":"Vagem (Bandeja)","cat":"Sacolão","bc":"297410","un":"un","cu":0,"pr":7.0,"est":0,"min":0,"obs":"A partir de"},{"id":402,"nome":"Vagem picadinha- Pronto e Prático","cat":"Sacolão","bc":"697171","un":"un","cu":0,"pr":6.11,"est":0,"min":0,"obs":"150 gramas"},{"id":403,"nome":"Vale da Canastra Ouro 375ml","cat":"Cachaças","bc":"1996585","un":"un","cu":0,"pr":70.0,"est":0,"min":0,"obs":"Cachaça Kaleido"},{"id":404,"nome":"Vinagrete de Jiló -Uai, Trem - Ibisco","cat":"Conservas","bc":"871740","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"330 g"},{"id":405,"nome":"Vinagrete de pimenta","cat":"Temperos","bc":"2071329","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":""},{"id":406,"nome":"Vinagrete de Pimenta- Uai, Trem - Ibisco","cat":"Conservas","bc":"871743","un":"un","cu":0,"pr":25.0,"est":0,"min":0,"obs":"330 g"}]
+  save();
+}
+
+const CATS={
+  'Aves'                                          :'background:#fff3d6;color:#7a3f00',
+  'Bebidas'                                       :'background:#dbeafe;color:#1e40af',
+  'Cachaças'                                      :'background:#fce7f3;color:#9d174d',
+  'Conservas'                                     :'background:#d1fae5;color:#065f46',
+  'Conveniência'                                  :'background:#f1f5f9;color:#334155',
+  'Doces'                                         :'background:#fdf4ff;color:#7c3aed',
+  'Doces diet  e  Fit'                            :'background:#ecfdf5;color:#059669',
+  'Farinhas'                                      :'background:#fef9c3;color:#92400e',
+  'Geleias artesanais'                            :'background:#ffe4e6;color:#9f1239',
+  'Mel'                                           :'background:#fffbeb;color:#b45309',
+  'Ovos'                                          :'background:#fef3c7;color:#92400e',
+  'Polvilhos'                                     :'background:#f0fdf4;color:#15803d',
+  'Pão de Queijo e Quitandas congeladas'          :'background:#fff7ed;color:#c2410c',
+  'Queijos  e Requeijão e Manteiga de Leite'      :'background:#dcfce7;color:#15803d',
+  'Quitandas e Biscoitos de Polvilho'             :'background:#fef9c3;color:#854d0e',
+  'Sacolão'                                       :'background:#d1fae5;color:#065f46',
+  'Salgadinhos  e Mini pizzas e Tortas congelados':'background:#ffe4e6;color:#be123c',
+  'Suínos'                                        :'background:#fce7f3;color:#be185d',
+  'Temperos'                                      :'background:#fef3c7;color:#b45309',
+};
+
+// ── SAVE ──────────────────────────────────────────────────────────
+function save(){
+  // Normaliza ids antes de salvar para evitar corrupção de tipo
+  P=P.map(p=>({...p,id:Number(p.id)}));
+  localStorage.setItem('emp_p',  JSON.stringify(P));
+  localStorage.setItem('emp_mv', JSON.stringify(MV));
+  localStorage.setItem('emp_v',  JSON.stringify(V));
+}
+
+// ── NAVEGAÇÃO ─────────────────────────────────────────────────────
+function goTab(id, el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('pdv-sec').style.display = id==='pdv' ? 'grid' : 'none';
+  ['estoque','movs','cad'].forEach(s=>{
+    document.getElementById(s+'-sec').classList.toggle('active', s===id);
+  });
+  if(id==='estoque'){renderTable();resumo();adjProd();}
+  if(id==='movs')   renderMovs();
+  if(id==='cad')    renderCad();
+}
+
+// ── PDV: GRID DE PRODUTOS ─────────────────────────────────────────
+function renderPills(){
+  const cats=['Todos',...new Set(P.map(p=>p.cat))];
+  // encodeURIComponent garante que qualquer char especial (/ \ ' " etc) fica seguro no data-attr
+  document.getElementById('cat-pills').innerHTML=cats.map(c=>{
+    const safe=encodeURIComponent(c);
+    return `<div class="pill${c===catAt?' on':''}" data-cat="${safe}">${c}<\/div>`;
+  }).join('');
+}
+function setCat(c){catAt=c;renderPills();renderGrid();}
+// Event delegation para os pills de categoria
+// dataset.cat está em encodeURIComponent — decodifica antes de usar
+document.getElementById('cat-pills').addEventListener('click',function(e){
+  const pill=e.target.closest('[data-cat]');
+  if(!pill) return;
+  setCat(decodeURIComponent(pill.dataset.cat));
+});
+
+// Event delegation no grid de produtos
+document.getElementById('prod-grid').addEventListener('click', function(e){
+  const card = e.target.closest('.pc');
+  if(!card) return;
+  if(card.dataset.esg === 'true') return; // esgotado
+  addItem(Number(card.dataset.id));
+});
+
+function renderGrid(){
+  const q=(document.getElementById('busca').value||'').toLowerCase();
+  const list=P.filter(p=>
+    (catAt==='Todos'||p.cat===catAt)&&
+    (!q||p.nome.toLowerCase().includes(q)||(p.bc||'').includes(q))
+  );
+  if(!list.length){
+    document.getElementById('prod-grid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--texto-clr);font-size:13px">Nenhum produto encontrado.<\/div>';
+    return;
+  }
+  // data-id como string evita perda de precisão em timestamps > Number.MAX_SAFE_INTEGER
+  document.getElementById('prod-grid').innerHTML=list.map(p=>{
+    const st=CATS[p.cat]||'background:#f1f5f9;color:#334155';
+    const em=p.est<=0;
+    return `<div class="pc${em?' esgotado':''}" data-id="${String(p.id)}" data-esg="${em}">
+      <div class="pc-add">+<\/div>
+      <div class="pc-cat" style="${st}">${p.cat}<\/div>
+      <div class="pc-nome">${p.nome}<\/div>
+      <div><span class="pc-preco">${brl(p.pr)}<\/span><span class="pc-unid"> por ${p.un}<\/span><\/div>
+      <div class="pc-estq">${em?'⚠ Esgotado':'Estoque: '+f(p.est)+' '+p.un}<\/div>
+    <\/div>`;
+  }).join('');
+}
+
+// ── CARRINHO ──────────────────────────────────────────────────────
+// SEMPRE converte pid para Number antes de qualquer comparação
+function ciFind(pid){return carr.find(i=>i.pid===Number(pid));}
+
+function addItem(pid, qtdF){
+  pid=Number(pid); // garante number independente de como veio
+  const p=P.find(x=>x.id===pid);
+  if(!p){toast('Produto não encontrado.','er');return;}
+  if(p.est<=0){toast('Produto sem estoque.','er');return;}
+
+  // unidades contínuas → modal de quantidade
+  if(!qtdF && ['kg','g','L'].includes(p.un)){
+    mqId=pid; mqEd=false;
+    document.getElementById('mq-title').textContent=p.nome+' ('+p.un+')';
+    document.getElementById('mq-val').value='';
+    document.getElementById('m-qtd').classList.add('open');
+    setTimeout(()=>document.getElementById('mq-val').focus(),80);
+    return;
+  }
+
+  const qtd=qtdF||1;
+  const item=ciFind(pid);
+  const nq=(item?item.qtd:0)+qtd;
+  if(nq>p.est){toast(`Máx: ${f(p.est)} ${p.un} em estoque`,'av');return;}
+  if(item) item.qtd=nq;
+  else carr.push({pid, qtd});
+  renderCart();
+  toast(`+ ${f(qtd)} ${p.un} — ${p.nome}`);
+}
+
+function chQtd(pid, d){
+  pid=Number(pid);
+  const item=ciFind(pid);
+  if(!item) return;
+  const p=P.find(x=>x.id===pid);
+  const nq=item.qtd+d;
+  if(nq<=0){carr=carr.filter(i=>i.pid!==pid);}
+  else if(nq>p.est){toast(`Máx: ${f(p.est)} ${p.un}`,'av');return;}
+  else item.qtd=nq;
+  renderCart();
+}
+
+function remItem(pid){
+  pid=Number(pid);
+  carr=carr.filter(i=>i.pid!==pid);
+  renderCart();
+}
+
+function editQtd(pid){
+  pid=Number(pid);
+  const item=ciFind(pid);
+  const p=P.find(x=>x.id===pid);
+  if(!item||!p) return;
+  mqId=pid; mqEd=true;
+  document.getElementById('mq-title').textContent=p.nome+' ('+p.un+')';
+  document.getElementById('mq-val').value=item.qtd;
+  document.getElementById('m-qtd').classList.add('open');
+  setTimeout(()=>document.getElementById('mq-val').focus(),80);
+}
+
+function confirmarQtd(){
+  const qtd=parseFloat(document.getElementById('mq-val').value);
+  if(!qtd||qtd<=0){toast('Informe uma quantidade.','er');return;}
+  // CRÍTICO: salvar pid e modo ANTES de closeModal(), que zera mqId e mqEd
+  const pid=Number(mqId);
+  const editMode=mqEd;
+  closeModal();
+  if(editMode){
+    const item=ciFind(pid);
+    const p=P.find(x=>x.id===pid);
+    if(item&&p){
+      if(qtd>p.est){toast(`Máx: ${f(p.est)} ${p.un}`,'av');return;}
+      item.qtd=qtd; renderCart();
+      toast(`Quantidade atualizada: ${f(qtd)} ${p.un}`);
+    }
+  } else {
+    // Adiciona diretamente ao carrinho sem chamar addItem (evita re-abrir modal)
+    const p=P.find(x=>x.id===pid);
+    if(!p){toast('Produto não encontrado.','er');return;}
+    if(p.est<=0){toast('Produto sem estoque.','er');return;}
+    const item=ciFind(pid);
+    const nq=(item?item.qtd:0)+qtd;
+    if(nq>p.est){toast(`Máx: ${f(p.est)} ${p.un} em estoque`,'av');return;}
+    if(item) item.qtd=nq;
+    else carr.push({pid, qtd});
+    renderCart();
+    toast(`+ ${f(qtd)} ${p.un} — ${p.nome}`);
+  }
+}
+document.getElementById('mq-val').addEventListener('keydown',e=>{if(e.key==='Enter')confirmarQtd();});
+
+// Event delegation no carrinho — resolve perda de precisão em timestamps grandes
+// data-pid é lido como string e convertido com Number() somente quando necessário
+document.getElementById('cart-body').addEventListener('click', function(e){
+  const btn = e.target.closest('[data-act]');
+  if(!btn) return;
+  const act = btn.dataset.act;
+  const pid = Number(btn.dataset.pid); // converte de string para number aqui
+  if(act==='plus')  chQtd(pid, 1);
+  else if(act==='minus') chQtd(pid, -1);
+  else if(act==='rem')   remItem(pid);
+  else if(act==='edit')  editQtd(pid);
+});
+
+function renderCart(){
+  const body=document.getElementById('cart-body');
+  const total=totalCarr();
+  const nItens=carr.reduce((s,i)=>s+i.qtd,0);
+
+  if(!carr.length){
+    body.innerHTML=`<div class="cart-empty-msg">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" stroke="#c8963e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity=".4"/><\/svg>
+      <p>Clique num produto<br>para adicionar ao carrinho<\/p>
+    <\/div>`;
+  } else {
+    // Usamos data-pid (string) para evitar perda de precisão em timestamps grandes (>2^53)
+    body.innerHTML=carr.map(item=>{
+      const p=P.find(x=>x.id===Number(item.pid));
+      if(!p) return '';
+      const cont=['kg','g','L'].includes(p.un);
+      const pid=String(item.pid);
+      return `<div class="ci">
+        <div class="ci-info">
+          <div class="ci-nome">${p.nome}<\/div>
+          <div class="ci-sub">${brl(p.pr)} · ${p.un} · ${p.cat}<\/div>
+        <\/div>
+        <div class="ci-ctrl">
+          ${cont
+            ? `<span style="font-size:13px;font-weight:700;color:var(--marrom-esc);font-family:serif">${f(item.qtd)}&nbsp;${p.un}<\/span>
+               <button class="qb" data-act="edit" data-pid="${pid}" title="Editar quantidade">✎<\/button>`
+            : `<button class="qb" data-act="minus" data-pid="${pid}">−<\/button>
+               <span class="qv">${f(item.qtd)}<\/span>
+               <button class="qb" data-act="plus" data-pid="${pid}">+<\/button>`
+          }
+        <\/div>
+        <div class="ci-total">${brl(p.pr*item.qtd)}<\/div>
+        <button class="ci-del" data-act="rem" data-pid="${pid}" title="Remover">✕<\/button>
+      <\/div>`;
+    }).join('');
+  }
+
+  document.getElementById('tf-total').textContent=brl(total);
+  document.getElementById('tf-itens').textContent=carr.length+' produto'+(carr.length!==1?'s':'');
+  document.getElementById('tf-qtd').textContent=Number.isInteger(nItens)?nItens:nItens.toFixed(2);
+  document.getElementById('cn').textContent=carr.length+(carr.length===1?' item':' itens');
+  document.getElementById('btn-fechar').disabled=!carr.length;
+  calcTroco();
+}
+
+function totalCarr(){
+  return carr.reduce((s,i)=>{
+    const p=P.find(x=>x.id===Number(i.pid));
+    return s+(p?p.pr*i.qtd:0);
+  },0);
+}
+
+function calcTroco(){
+  const total=totalCarr();
+  const rec=parseFloat(document.getElementById('recebido').value)||0;
+  const el=document.getElementById('troco');
+  if(!rec||!total){el.textContent='—';el.style.color='var(--texto-clr)';return;}
+  const tr=rec-total;
+  if(tr<0){el.textContent='Falta '+brl(-tr);el.style.color='var(--perigo)';}
+  else{el.textContent='Troco '+brl(tr);el.style.color='var(--verde)';}
+}
+
+// ── FECHAR VENDA ──────────────────────────────────────────────────
+function fecharVenda(){
+  if(!carr.length) return;
+  const total=totalCarr();
+  const rec=parseFloat(document.getElementById('recebido').value)||0;
+  const troco=rec>0?rec-total:null;
+  const ts=Date.now();
+  const itens=[];
+
+  carr.forEach(item=>{
+    const p=P.find(x=>x.id===Number(item.pid));
+    if(!p) return;
+    p.est=Math.max(0, p.est-item.qtd);
+    itens.push({id:p.id,nome:p.nome,qtd:item.qtd,pr:p.pr,un:p.un});
+    MV.unshift({
+      id:ts+Math.random(),data:new Date().toLocaleString('pt-BR'),
+      produtoId:p.id,produtoNome:p.nome,
+      tipo:'venda',qtd:item.qtd,delta:-item.qtd,
+      obs:'Venda #'+ts,estoqueApos:p.est
+    });
+  });
+
+  V.unshift({id:ts,data:new Date().toLocaleString('pt-BR'),itens,total,rec,troco});
+  save();
+  renderGrid();
+  resumo();
+
+  document.getElementById('vok-total').textContent=brl(total);
+  document.getElementById('vok-troco').innerHTML=troco!==null
+    ? `Recebido ${brl(rec)} &nbsp;·&nbsp; Troco <strong>${brl(Math.max(0,troco))}<\/strong>` : '';
+  document.getElementById('vok-itens').innerHTML=itens.map(i=>
+    `<div class="vok-item"><span>${i.nome} × ${f(i.qtd)} ${i.un}<\/span><span>${brl(i.pr*i.qtd)}<\/span><\/div>`
+  ).join('');
+  document.getElementById('m-vok').classList.add('open');
+}
+
+function novaVenda(){
+  carr=[];
+  document.getElementById('recebido').value='';
+  document.getElementById('m-vok').classList.remove('open');
+  renderCart();
+  renderGrid();
+  document.getElementById('busca').value='';
+  document.getElementById('bc').focus();
+  toast('Pronto para o próximo cliente!');
+}
+
+function cancelar(){
+  if(!carr.length) return;
+  if(!confirm('Cancelar esta venda e limpar o carrinho?')) return;
+  carr=[];
+  document.getElementById('recebido').value='';
+  renderCart();
+  toast('Venda cancelada.','av');
+}
+
+// ── BARCODE ───────────────────────────────────────────────────────
+function bcEnter(){
+  const cod=document.getElementById('bc').value.trim();
+  document.getElementById('bc').value='';
+  if(!cod) return;
+  const p=P.find(function(x){ return x.bc===cod; });
+  if(p) mostrarProduto(p.id);
+  else toast('Código não encontrado.','er');
+}
+
+// Produto em destaque no PDV compacto
+let _pePid = null;
+
+function mostrarProduto(pid){
+  pid = Number(pid);
+  const p = P.find(function(x){ return x.id===pid; });
+  if(!p) return;
+  _pePid = pid;
+  document.getElementById('pe-cat').textContent    = p.cat;
+  document.getElementById('pe-nome').textContent   = p.nome;
+  document.getElementById('pe-preco').textContent  = brl(p.pr)+' por '+p.un;
+  document.getElementById('pe-estoque').textContent= 'Estoque disponível: '+f(p.est)+' '+p.un;
+  document.getElementById('pe-un').textContent     = p.un;
+  // Para unidades contínuas (kg,L) deixa campo em branco; para discretas coloca 1
+  const cont = ['kg','g','L'].indexOf(p.un) !== -1;
+  document.getElementById('pe-qtd').value = cont ? '' : '1';
+  document.getElementById('prod-encontrado').style.display='block';
+  document.getElementById('busca-resultados').style.display='none';
+  document.getElementById('busca').value='';
+  setTimeout(function(){ document.getElementById('pe-qtd').focus(); document.getElementById('pe-qtd').select(); }, 80);
+}
+
+function peAdicionar(){
+  if(!_pePid) return;
+  const qtd = parseFloat(document.getElementById('pe-qtd').value);
+  if(!qtd||qtd<=0){ toast('Informe a quantidade.','er'); return; }
+  addItem(_pePid, qtd);
+  peLimpar();
+  document.getElementById('bc').focus();
+}
+
+function peLimpar(){
+  _pePid=null;
+  document.getElementById('prod-encontrado').style.display='none';
+  document.getElementById('pe-qtd').value='1';
+}
+
+function peQtdPlus(){
+  const el=document.getElementById('pe-qtd');
+  el.value = (parseFloat(el.value)||0)+1;
+}
+
+function peQtdMinus(){
+  const el=document.getElementById('pe-qtd');
+  const v=(parseFloat(el.value)||0)-1;
+  if(v>0) el.value=v;
+}
+
+// Busca textual no PDV compacto
+function renderBusca(){
+  const q=(document.getElementById('busca').value||'').trim().toLowerCase();
+  const res=document.getElementById('busca-resultados');
+  if(q.length < 2){ res.style.display='none'; return; }
+  const lista=P.filter(function(p){
+    return p.nome.toLowerCase().indexOf(q)!==-1 || (p.bc&&p.bc.indexOf(q)!==-1);
+  }).slice(0,12);
+  if(!lista.length){ res.style.display='none'; return; }
+  res.style.display='block';
+  res.innerHTML=lista.map(function(p){
+    const em=p.est<=0;
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--creme-esc);cursor:'+(em?'default':'pointer')+';opacity:'+(em?'.45':'1')+'" data-busca-id="'+p.id+'">'
+      +'<div><div style="font-weight:600;font-size:13px">'+p.nome+'</div><div style="font-size:11px;color:var(--texto-clr)">'+p.cat+(em?' · Esgotado':' · '+f(p.est)+' '+p.un)+'</div></div>'
+      +'<div class="pc-preco" style="font-size:15px">'+brl(p.pr)+'<\/div>'
+      +'</div>';
+  }).join('');
+}
+
+// Grid mini (só quando cat selecionada)
+function renderGrid(){
+  const q=(document.getElementById('busca').value||'').toLowerCase();
+  const grid=document.getElementById('prod-grid');
+  if(catAt==='Todos' && !q){ grid.innerHTML=''; return; }
+  const lista=P.filter(function(p){
+    return (catAt==='Todos'||p.cat===catAt)&&(!q||p.nome.toLowerCase().indexOf(q)!==-1);
+  }).slice(0,40);
+  if(!lista.length){ grid.innerHTML=''; return; }
+  grid.innerHTML=lista.map(function(p){
+    const em=p.est<=0;
+    const st=CATS[p.cat]||'background:#f1f5f9;color:#334155';
+    return '<div class="pc'+(em?' esgotado':'')+'" data-id="'+String(p.id)+'" data-esg="'+em+'">'
+      +'<div class="pc-cat" style="'+st+'">'+p.cat+'</div>'
+      +'<div class="pc-nome">'+p.nome+'</div>'
+      +'<div><span class="pc-preco">'+brl(p.pr)+'</span><span class="pc-unid"> por '+p.un+'</span></div>'
+      +'<div class="pc-estq">'+(em?'⚠ Esgotado':'Estoque: '+f(p.est)+' '+p.un)+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+
+let bbuf='', btmr=null;
+document.addEventListener('keypress',e=>{
+  if(document.getElementById('pdv-sec').style.display==='none') return;
+  const a=document.activeElement;
+  if(a&&['INPUT','SELECT','TEXTAREA'].includes(a.tagName)&&a.id!=='bc') return;
+  clearTimeout(btmr);
+  if(e.key==='Enter'&&bbuf.length>=4){document.getElementById('bc').value=bbuf;bcEnter();bbuf='';}
+  else if(e.key!=='Enter'){bbuf+=e.key;btmr=setTimeout(()=>bbuf='',120);}
+});
+
+// ── AJUSTE ESTOQUE ────────────────────────────────────────────────
+function registrarAdj(){
+  const pid=parseInt(document.getElementById('adj-prod').value);
+  const p=P.find(x=>x.id===pid);
+  if(!p){toast('Selecione produto.','er');return;}
+  const qtd=parseFloat(document.getElementById('adj-qtd').value);
+  if(!qtd||qtd<=0){toast('Quantidade inválida.','er');return;}
+  const tipo=document.getElementById('adj-tipo').value;
+  const obs=document.getElementById('adj-obs').value;
+  const d=tipo==='entrada'||tipo==='ajuste'?qtd:-qtd;
+  p.est=Math.max(0,p.est+d);
+  MV.unshift({id:Date.now(),data:new Date().toLocaleString('pt-BR'),produtoId:p.id,produtoNome:p.nome,tipo,qtd,delta:d,obs,estoqueApos:p.est});
+  save();renderTable();renderGrid();resumo();
+  document.getElementById('adj-qtd').value='1';
+  document.getElementById('adj-obs').value='';
+  toast(`${tipo==='entrada'?'Entrada':'Ajuste'}: ${qtd} ${p.un} — ${p.nome}`);
+}
+
+// ── CADASTRO ──────────────────────────────────────────────────────
+function cadastrar(){
+  const nome=document.getElementById('cn-nome').value.trim();
+  if(!nome){toast('Informe o nome.','er');return;}
+  const p={
+    id:Number(Date.now()),nome,
+    cat:document.getElementById('cn-cat').value,
+    bc:document.getElementById('cn-bc').value.trim(),
+    un:document.getElementById('cn-un').value,
+    cu:parseFloat(document.getElementById('cn-cu').value)||0,
+    pr:parseFloat(document.getElementById('cn-pr').value)||0,
+    est:parseFloat(document.getElementById('cn-est').value)||0,
+    min:parseFloat(document.getElementById('cn-min').value)||0,
+    obs:document.getElementById('cn-obs').value.trim(),
+  };
+  if(p.est>0) MV.unshift({id:Date.now()+1,data:new Date().toLocaleString('pt-BR'),produtoId:p.id,produtoNome:p.nome,tipo:'entrada',qtd:p.est,delta:p.est,obs:'Estoque inicial',estoqueApos:p.est});
+  P.push(p);
+  save();renderCad();renderPills();renderGrid();resumo();adjProd();limCad();
+  toast(`"${nome}" cadastrado!`);
+}
+function limCad(){['cn-nome','cn-bc','cn-cu','cn-pr','cn-est','cn-min','cn-obs'].forEach(i=>document.getElementById(i).value='');}
+
+// Event delegation para tabelas do back-office
+['tbod','cad-bod'].forEach(function(tbId){
+  const el = document.getElementById(tbId);
+  if(!el) return;
+  el.addEventListener('click', function(e){
+    const btn = e.target.closest('[data-act]');
+    if(!btn) return;
+    const id = Number(btn.dataset.id);
+    if(btn.dataset.act==='edit') abrirEdit(id);
+    else if(btn.dataset.act==='del') excluir(id);
+  });
+});
+
+// ── EDIÇÃO ────────────────────────────────────────────────────────
+function abrirEdit(id){
+  id=Number(id);
+  const p=P.find(x=>x.id===id);if(!p) return;editId=id;
+  document.getElementById('me-nome').value=p.nome;
+  document.getElementById('me-cat').value=p.cat;
+  document.getElementById('me-bc').value=p.bc||'';
+  document.getElementById('me-un').value=p.un;
+  document.getElementById('me-cu').value=p.cu;
+  document.getElementById('me-pr').value=p.pr;
+  document.getElementById('me-est').value=p.est;
+  document.getElementById('me-min').value=p.min;
+  document.getElementById('m-edit').classList.add('open');
+}
+function salvarEdit(){
+  const p=P.find(x=>x.id===Number(editId));if(!p) return;
+  const ne=parseFloat(document.getElementById('me-est').value)||0;
+  if(ne!==p.est) MV.unshift({id:Date.now(),data:new Date().toLocaleString('pt-BR'),produtoId:p.id,produtoNome:p.nome,tipo:'ajuste',qtd:Math.abs(ne-p.est),delta:ne-p.est,obs:'Ajuste via edição',estoqueApos:ne});
+  p.nome=document.getElementById('me-nome').value.trim();
+  p.cat=document.getElementById('me-cat').value;
+  p.bc=document.getElementById('me-bc').value.trim();
+  p.un=document.getElementById('me-un').value;
+  p.cu=parseFloat(document.getElementById('me-cu').value)||0;
+  p.pr=parseFloat(document.getElementById('me-pr').value)||0;
+  p.est=ne;p.min=parseFloat(document.getElementById('me-min').value)||0;
+  save();closeModal();renderTable();renderCad();renderGrid();resumo();renderPills();
+  toast('Produto atualizado.');
+}
+function excluir(id){
+  id=Number(id);
+  if(!confirm('Excluir este produto?')) return;
+  P=P.filter(p=>p.id!==id);
+  save();renderTable();renderCad();renderGrid();resumo();renderPills();
+  toast('Produto removido.','av');
+}
+function closeModal(){
+  document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('open'));
+  editId=null;mqId=null;mqEd=false;
+}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o&&o.id!=='m-vok')closeModal();}));
+
+// ── TABELAS / RENDERS ─────────────────────────────────────────────
+function renderTable(){
+  const q=(document.getElementById('bst')?.value||'').toLowerCase();
+  const cf=document.getElementById('fcat')?.value||'';
+  const list=P.filter(p=>(!q||p.nome.toLowerCase().includes(q)||(p.bc||'').includes(q))&&(!cf||p.cat===cf));
+  const tb=document.getElementById('tbod');
+  const em=document.getElementById('est-empty');
+  if(!list.length){tb.innerHTML='';em.classList.remove('hid');return;}
+  em.classList.add('hid');
+  tb.innerHTML=list.map(p=>{
+    const st=CATS[p.cat]||'background:#f1f5f9;color:#334155';
+    const b=p.est<=0?`<span class="eb ez">Zerado<\/span>`:p.min>0&&p.est<=p.min?`<span class="eb el">${f(p.est)} ${p.un}<\/span>`:`<span class="eb eo">${f(p.est)} ${p.un}<\/span>`;
+    return `<tr>
+      <td><strong>${p.nome}<\/strong>${p.obs?`<br><span style="font-size:11px;color:var(--texto-clr)">${p.obs}<\/span>`:''}<\/td>
+      <td><span class="tc" style="${st}">${p.cat}<\/span><\/td>
+      <td style="font-size:11px;color:var(--texto-clr);font-family:'Lato',sans-serif">${p.bc||'—'}<\/td>
+      <td class="r">${b}<\/td>
+      <td class="r">${brl(p.cu)}<\/td>
+      <td class="r">${brl(p.pr)}<\/td>
+      <td class="r" style="font-weight:700">${brl(p.cu*p.est)}<\/td>
+      <td class="r" style="font-size:12px;color:var(--texto-clr)">${p.min>0?f(p.min)+' '+p.un:'—'}<\/td>
+      <td class="r"><div class="act-btns"><button class="btn btn-ghost btn-sm" data-act="edit" data-id="${String(p.id)}">Editar<\/button><\/div><\/td>
+    <\/tr>`;
+  }).join('');
+}
+
+function renderMovs(){
+  const el=document.getElementById('mv-list');
+  if(!MV.length){el.innerHTML='<div class="es">Nenhuma movimentação ainda.<\/div>';return;}
+  const ic={venda:'🛒',entrada:'📦',ajuste:'⟳',perda:'✕'};
+  el.innerHTML=MV.slice(0,300).map(m=>`<div class="mv">
+    <div class="mv-ic ${m.tipo}">${ic[m.tipo]||'·'}<\/div>
+    <div class="mv-info"><div class="mv-p">${m.produtoNome}<\/div><div class="mv-d">${m.obs||m.tipo} · após: ${f(m.estoqueApos)}<\/div><\/div>
+    <div class="mv-q ${m.delta>=0?'pos':'neg'}">${m.delta>=0?'+':''}${f(m.qtd)}<\/div>
+    <div class="mv-dt">${m.data}<\/div>
+  <\/div>`).join('');
+}
+
+function renderCad(){
+  const tb=document.getElementById('cad-bod');
+  if(!P.length){tb.innerHTML='<tr><td colspan="7" class="es">Nenhum produto cadastrado.<\/td><\/tr>';return;}
+  tb.innerHTML=P.map(p=>{
+    const st=CATS[p.cat]||'background:#f1f5f9;color:#334155';
+    const m=p.pr>0?((p.pr-p.cu)/p.pr*100):0;
+    const mc=m>=35?'var(--verde)':m>=20?'var(--amarelo)':'var(--perigo)';
+    return `<tr>
+      <td><strong>${p.nome}<\/strong>${p.bc?`<br><span style="font-size:11px;color:var(--texto-clr)">${p.bc}<\/span>`:''}<\/td>
+      <td><span class="tc" style="${st}">${p.cat}<\/span><\/td>
+      <td style="text-align:center">${p.un}<\/td>
+      <td class="r">${brl(p.cu)}<\/td>
+      <td class="r">${brl(p.pr)}<\/td>
+      <td class="r" style="font-weight:700;color:${mc}">${m.toFixed(1)}%<\/td>
+      <td class="r"><div class="act-btns">
+        <button class="btn btn-ghost btn-sm" data-act="edit" data-id="${String(p.id)}">Editar<\/button>
+        <button class="btn btn-sm" style="background:var(--perigo-clr);color:var(--perigo);border:none" data-act="del" data-id="${String(p.id)}">✕<\/button>
+      <\/div><\/td>
+    <\/tr>`;
+  }).join('');
+}
+
+// ── RESUMO ────────────────────────────────────────────────────────
+function resumo(){
+  document.getElementById('s-tot').textContent=P.length;
+  document.getElementById('s-val').textContent=brl(P.reduce((s,p)=>s+p.cu*p.est,0));
+  const baixos  = P.filter(function(p){ return p.min>0&&p.est>0&&p.est<=p.min; });
+  const zerados = P.filter(function(p){ return p.est<=0; });
+  document.getElementById('s-bx').textContent=baixos.length;
+  document.getElementById('s-zr').textContent=zerados.length;
+  document.getElementById('hdr-est').textContent=P.length+' produto'+(P.length!==1?'s':'');
+  const ab=document.getElementById('alerta');
+  if(zerados.length > 0 || baixos.length > 0){
+    ab.classList.remove('hid');
+    const partes = [];
+    if(zerados.length) partes.push(zerados.length+' produto'+(zerados.length!==1?'s':'')+' zerado'+(zerados.length!==1?'s':''));
+    if(baixos.length)  partes.push(baixos.length+' com estoque baixo');
+    document.getElementById('alerta-resumo').textContent = partes.join(' · ');
+    // Popula o detalhe (oculto por padrão)
+    const elZ = document.getElementById('alerta-zerados');
+    const elB = document.getElementById('alerta-baixos');
+    if(zerados.length){
+      elZ.innerHTML = '<strong>Zerados ('+zerados.length+'):</strong> '+zerados.slice(0,30).map(function(p){return p.nome;}).join(', ')+(zerados.length>30?' e mais '+(zerados.length-30)+'...':'');
+    } else { elZ.innerHTML=''; }
+    if(baixos.length){
+      elB.innerHTML = '<strong>Estoque baixo ('+baixos.length+'):</strong> '+baixos.map(function(p){return p.nome+' ('+f(p.est)+' '+p.un+')';}).join(', ');
+    } else { elB.innerHTML=''; }
+  } else {
+    ab.classList.add('hid');
+  }
+}
+
+function toggleAlerta(){
+  const det = document.getElementById('alerta-detalhe');
+  const tog = document.getElementById('alerta-toggle');
+  if(det.style.display === 'none'){
+    det.style.display = 'block';
+    tog.textContent = '▲ fechar';
+  } else {
+    det.style.display = 'none';
+    tog.textContent = '▼ ver lista';
+  }
+}
+
+function adjProd(){
+  const s=document.getElementById('adj-prod');
+  const v=s.value;
+  s.innerHTML='<option value="">— selecione —<\/option>'+P.map(p=>`<option value="${p.id}">${p.nome} (${f(p.est)} ${p.un})<\/option>`).join('');
+  if(v) s.value=v;
+}
+
+function catFiltro(){
+  const s=document.getElementById('fcat');
+  const v=s.value;
+  const cats=[...new Set(P.map(p=>p.cat))].sort();
+  s.innerHTML='<option value="">Todas categorias<\/option>'+cats.map(c=>`<option value="${c}">${c}<\/option>`).join('');
+  if(v) s.value=v;
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────
+function f(n){if(n==null)return'0';const x=parseFloat(n);return Number.isInteger(x)?x:parseFloat(x.toFixed(3)).toString();}
+function brl(n){return'R$ '+parseFloat(n||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+function limparHist(){if(!confirm('Limpar histórico?'))return;MV=[];save();renderMovs();toast('Histórico limpo.','av');}
+
+function exportCSV(){
+  const h=['Nome','Cat','CódBarras','Unid','Estoque','Custo','Preço','ValorTotal','Mín'];
+  const r=P.map(p=>[p.nome,p.cat,p.bc||'',p.un,p.est,p.cu,p.pr,(p.cu*p.est).toFixed(2),p.min]);
+  const csv=[h,...r].map(x=>x.join(';')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download='casacaipira_estoque_'+new Date().toLocaleDateString('pt-BR').split('/').join('-')+'.csv';
+  a.click();toast('CSV exportado!');
+}
+
+let tT;
+function toast(msg,t='ok'){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.className='show'+(t==='er'?' er':t==='av'?' av':'');
+  clearTimeout(tT);tT=setTimeout(()=>el.className='',2700);
+}
+
+// ── IMPORTAR PLANILHA ────────────────────────────────────────────
+// Suporta CSV (separador ; ou ,) e XLSX via SheetJS (CDN)
+function importarPlanilha(input){
+  const file = input.files[0];
+  if(!file) return;
+  const ext = file.name.split('.').pop().toLowerCase();
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+    let rows = [];
+    if(ext === 'csv'){
+      const text = e.target.result;
+      // Split by newline without regex
+      const allLines = text.split('\n').map(function(l){ return l.split('\r').join(''); });
+      const lines = allLines.filter(function(l){ return l.trim().length > 0; });
+      const sep = lines[0].indexOf(';') !== -1 ? ';' : ',';
+      const rawHeaders = lines[0].split(sep);
+      const headers = rawHeaders.map(function(h){
+        return h.trim().toLowerCase().split("'").join('').split('"').join('');
+      });
+      rows = lines.slice(1).map(function(l){
+        const cols = l.split(sep).map(function(c){
+          let v = c.trim();
+          if((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'")))
+            v = v.slice(1,-1);
+          return v;
+        });
+        const obj = {};
+        headers.forEach(function(h,i){ obj[h] = cols[i] || ''; });
+        return obj;
+      });
+      processarImport(rows, file.name);
+    } else {
+      function parseXLSX(ab){
+        try{
+          const XLSX = window.XLSX;
+          const wb = XLSX.read(ab, {type:'array'});
+          const ws = wb.Sheets[wb.SheetNames[0]];
+          const data = XLSX.utils.sheet_to_json(ws, {defval:''});
+          processarImport(data, file.name);
+        } catch(err){
+          toast('Erro ao ler XLSX: '+err.message,'er');
+        }
+      }
+      if(window.XLSX){
+        parseXLSX(e.target.result);
+      } else {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+        s.onload = function(){ parseXLSX(e.target.result); };
+        s.onerror = function(){ toast('Sem internet para carregar leitor XLSX. Use CSV.','er'); };
+        document.head.appendChild(s);
+      }
+    }
+  };
+
+  if(ext === 'csv') reader.readAsText(file, 'UTF-8');
+  else reader.readAsArrayBuffer(file);
+  input.value = '';
+}
+
+const COL_MAP = {
+  nome:['nome','name','produto','descricao','title'],
+  cat: ['categoria','category','cat','grupo','group','secao'],
+  pr:  ['preco','price','valor','venda','pr','preco_venda'],
+  cu:  ['custo','cost','cu','preco_custo'],
+  bc:  ['codigo','barcode','ean','bc','referencia','id'],
+  un:  ['unidade','unit','un','medida'],
+  est: ['estoque','stock','quantidade','qty','est'],
+  min: ['minimo','min','estoque_minimo'],
+  obs: ['obs','observacao','descricao','description'],
+};
+
+function findCol(headers, field){
+  const aliases = COL_MAP[field] || [field];
+  for(let i=0;i<aliases.length;i++){
+    if(headers.indexOf(aliases[i]) !== -1) return aliases[i];
+  }
+  return null;
+}
+
+function processarImport(rows, fileName){
+  if(!rows.length){ toast('Planilha vazia.','er'); return; }
+  const headers = Object.keys(rows[0]).map(function(h){ return h.toLowerCase().trim(); });
+  function get(row, field){
+    const col = findCol(headers, field);
+    if(!col) return '';
+    const key = Object.keys(row).find(function(k){ return k.toLowerCase().trim() === col; });
+    return key ? String(row[key]).trim() : '';
+  }
+
+  let adicionados=0, ignorados=0, atualizados=0;
+  function nextId(){ return Number(Date.now()) + Math.floor(Math.random()*1000); }
+
+  rows.forEach(function(row){
+    const nome = get(row,'nome');
+    if(!nome){ ignorados++; return; }
+
+    const statusKey = Object.keys(row).find(function(k){ return k.toLowerCase().indexOf('status') !== -1; });
+    if(statusKey){
+      const st = String(row[statusKey]).toLowerCase();
+      if(st === 'inativo' || st === 'inactive' || st === '0' || st === 'false'){ ignorados++; return; }
+    }
+
+    const prRaw = get(row,'pr').split(',').join('.');
+    const pr = parseFloat(prRaw) || 0;
+    if(pr <= 0){ ignorados++; return; }
+
+    const cuRaw  = get(row,'cu').split(',').join('.');
+    const estRaw = get(row,'est').split(',').join('.');
+    const minRaw = get(row,'min').split(',').join('.');
+    const catRaw = (get(row,'cat') || 'Outros').split('/').join(' e ');
+    const bc  = get(row,'bc') || '';
+    const un  = get(row,'un') || 'un';
+    const obs = get(row,'obs') || '';
+    const cu  = parseFloat(cuRaw) || 0;
+    const est = parseFloat(estRaw) || 0;
+    const min = parseFloat(minRaw) || 0;
+
+    const existe = P.find(function(p){
+      return p.nome.toLowerCase() === nome.toLowerCase() ||
+             (bc && p.bc && p.bc === bc);
+    });
+
+    if(existe){
+      existe.pr = pr;
+      if(cu > 0) existe.cu = cu;
+      if(catRaw) existe.cat = catRaw;
+      if(bc) existe.bc = bc;
+      if(un) existe.un = un;
+      if(obs) existe.obs = obs.substring(0,60);
+      atualizados++;
+    } else {
+      P.push({
+        id:Number(nextId()), nome:nome, cat:catRaw, bc:bc, un:un,
+        cu:cu, pr:pr, est:est, min:min,
+        obs:obs.substring(0,60)
+      });
+      adicionados++;
+    }
+  });
+
+  save();
+  renderPills();
+  renderGrid();
+  renderCad();
+  catFiltro();
+  adjProd();
+  resumo();
+
+  toast('Importado: '+adicionados+' novos, '+atualizados+' atualizados, '+ignorados+' ignorados');
+  setTimeout(function(){
+    if(adicionados+atualizados > 0)
+      alert('Importacao concluida!\n\n' + adicionados + ' adicionados\n' + atualizados + ' atualizados\n' + ignorados + ' ignorados\n\nArquivo: ' + fileName);
+  }, 300);
+}
+
+// ── INIT ─────────────────────────────────────────────────────────
+// Event delegation para as abas — evita onclick inline que pode falhar com CDATA
+// ── DELEGAÇÃO UNIVERSAL DE EVENTOS ─────────────────────────────
+// Todas as ações HTML usam data-action em vez de onclick inline
+// para compatibilidade máxima com diferentes browsers
+document.body.addEventListener('click', function(e){
+  // Click em resultado de busca
+  const buscaItem = e.target.closest('[data-busca-id]');
+  if(buscaItem){
+    mostrarProduto(Number(buscaItem.dataset.buscaId));
+    return;
+  }
+  const el = e.target.closest('[data-action]');
+  if(!el) return;
+  const action = el.dataset.action;
+  const fns = {
+    exportCSV, cancelar, fecharVenda, registrarAdj,
+    limparHist, cadastrar, limCad, closeModal,
+    salvarEdit, confirmarQtd, novaVenda, toggleAlerta,
+    peAdicionar, peLimpar, peQtdPlus, peQtdMinus,
+  };
+  if(fns[action]) fns[action]();
+});
+
+document.body.addEventListener('change', function(e){
+  const el = e.target.closest('[data-action]');
+  if(!el) return;
+  const action = el.dataset.action;
+  if(action === 'importarPlanilha') importarPlanilha(el);
+  if(action === 'renderTable') renderTable();
+});
+
+document.body.addEventListener('input', function(e){
+  const el = e.target.closest('[data-input]');
+  if(!el) return;
+  const action = el.dataset.input;
+  if(action === 'renderGrid') renderGrid();
+  if(action === 'renderBusca'){ renderBusca(); renderGrid(); }
+  if(action === 'calcTroco') calcTroco();
+  if(action === 'renderTable') renderTable();
+});
+
+document.body.addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    const el = e.target.closest('[data-keyenter]');
+    if(el && el.dataset.keyenter === 'bcEnter'){ bcEnter(); return; }
+    // Enter no campo de quantidade do produto encontrado
+    if(e.target.id === 'pe-qtd'){ peAdicionar(); return; }
+  }
+});
+
+// Event delegation para as abas
+document.querySelector('.tabs').addEventListener('click', function(e){
+  const tab = e.target.closest('[data-tab]');
+  if(!tab) return;
+  goTab(tab.dataset.tab, tab);
+});
+
+// Limpa chaves antigas do localStorage para evitar conflito
+['emp_produtos','emp_movimentos'].forEach(k=>{
+  if(localStorage.getItem(k)) localStorage.removeItem(k);
+});
+document.getElementById('pdv-sec').style.display='block';
+['estoque','movs','cad'].forEach(s=>document.getElementById(s+'-sec').classList.remove('active'));
+renderPills();
+renderGrid();
+renderCart();
+resumo();
+catFiltro();
+adjProd();
+document.getElementById('bc').focus();
+</script>
+<script>
+// Registra Service Worker para uso offline e instalação como app
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('./sw.js').then(function(reg){
+      console.log('SW registrado:', reg.scope);
+    }).catch(function(err){
+      console.log('SW erro:', err);
+    });
+  });
+}
+</script>
+</body>
+</html>

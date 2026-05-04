@@ -1,0 +1,14 @@
+{
+  "name": "Casa Caipira · PDV",
+  "short_name": "Casa Caipira",
+  "description": "Sistema de ponto de venda — Boutique de Frangos desde 1974",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#2d1a0e",
+  "theme_color": "#2d1a0e",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
